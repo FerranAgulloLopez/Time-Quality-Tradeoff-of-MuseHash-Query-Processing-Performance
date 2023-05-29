@@ -47,15 +47,17 @@ def compute_metrics(true_nn_distances, res, metric_1, metric_2, recompute=False)
         run_distances = np.array(run["distances"])
         # cache times to avoid access to hdf5 file
         times = np.array(run["times"])
+        # cache neighbors to avoid access to hdf5 file
+        neighbors = np.array(run["neighbors"])
         if recompute and "metrics" in run:
             del run["metrics"]
         metrics_cache = get_or_create_metrics(run)
 
         metric_1_value = metrics[metric_1]["function"](
-            true_nn_distances, run_distances, metrics_cache, times, properties
+            true_nn_distances, run_distances, metrics_cache, times, properties, neighbors
         )
         metric_2_value = metrics[metric_2]["function"](
-            true_nn_distances, run_distances, metrics_cache, times, properties
+            true_nn_distances, run_distances, metrics_cache, times, properties, neighbors
         )
 
         print("%3d: %80s %12.3f %12.3f" % (i, algo_name, metric_1_value, metric_2_value))

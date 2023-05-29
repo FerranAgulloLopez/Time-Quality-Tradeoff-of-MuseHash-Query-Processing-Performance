@@ -4,6 +4,7 @@ from urllib.request import urlopen, urlretrieve
 
 import h5py
 import numpy
+import numpy as np
 
 
 def download(src, dst):
@@ -29,6 +30,9 @@ def get_dataset(which):
         if which in DATASETS:
             print("Creating dataset locally")
             DATASETS[which](hdf5_fn)
+        else:
+            if os.path.isfile(which):
+                hdf5_fn = which
     hdf5_f = h5py.File(hdf5_fn, "r")
 
     # here for backward compatibility, to ensure old datasets can still be used with newer versions
@@ -44,7 +48,7 @@ def get_dataset(which):
 
 
 def write_output(train, test, fn, distance, point_type="float", count=100):
-    from ann_benchmarks.algorithms.bruteforce import BruteForceBLAS
+    from ann_benchmarks.algorithms.bruteforce import BruteForce
 
     f = h5py.File(fn, "w")
     f.attrs["type"] = "dense"
@@ -57,7 +61,7 @@ def write_output(train, test, fn, distance, point_type="float", count=100):
     f.create_dataset("test", (len(test), len(test[0])), dtype=test.dtype)[:] = test
     neighbors = f.create_dataset("neighbors", (len(test), count), dtype="i")
     distances = f.create_dataset("distances", (len(test), count), dtype="f")
-    bf = BruteForceBLAS(distance, precision=train.dtype)
+    bf = BruteForce(distance)
 
     bf.fit(train)
     for i, x in enumerate(test):
@@ -476,6 +480,98 @@ def movielens20m(out_fn):
     movielens("ml-20m.zip", "ml-20m/ratings.csv", out_fn, ",", True)
 
 
+def vgg16_features(out_fn):
+    DATA_INFO_PATH = './data/dataset/'
+    VGG16_FEATURES_PATH = './data/vgg16_features/'
+
+    # load split info
+    train_split = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'train.txt'), dtype=int)
+    test_split = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'test.txt'), dtype=int)
+
+    # load vgg16 data
+    vgg16_train_data = np.zeros((train_split.shape[0], 4096))
+    for index in range(train_split.shape[0]):
+        print(f'Pending files to load: {train_split.shape[0] - index}')
+        vgg16_train_data[index] = np.genfromtxt(os.path.join(VGG16_FEATURES_PATH, f'feature_{train_split[index]}.txt'))
+    vgg16_test_data = np.zeros((test_split.shape[0], 4096))
+    for index in range(test_split.shape[0]):
+        print(f'Pending files to load: {test_split.shape[0] - index}')
+        vgg16_test_data[index] = np.genfromtxt(os.path.join(VGG16_FEATURES_PATH, f'feature_{test_split[index]}.txt'))
+
+    # create final dataset
+    write_output(vgg16_train_data, vgg16_test_data, out_fn, 'euclidean')
+
+
+def muse_hash(out_fn, modalities, bits):
+    DATA_INFO_PATH = './data/dataset/'
+    HASH_CODES_PATH = './data/hash_codes/'
+
+    # load split info
+    train_split = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'train.txt'), dtype=int)
+    test_split = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'test.txt'), dtype=int)
+
+    # load train hash codes data
+    hash_codes_train_data = np.zeros((train_split.shape[0], bits))
+    for index in range(train_split.shape[0]):
+        print(f'Pending files to load: {train_split.shape[0] - index}')
+        if len(modalities) == 1:
+            hash_codes_train_data[index] = np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'))
+        elif len(modalities) == 2:
+            hash_codes_train_data[index] = np.bitwise_xor(
+                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt')),
+                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'))
+            )
+        elif len(modalities) == 3:
+            hash_codes_train_data[index] = np.bitwise_and(
+                np.bitwise_xor(
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt')),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'))
+                ),
+                np.bitwise_xor(
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt')),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'))
+                ),
+                np.bitwise_xor(
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt')),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'))
+                )
+            )
+        else:
+            raise ValueError('Unsupported number of modality')
+
+    # load test hash codes data
+    hash_codes_test_data = np.zeros((test_split.shape[0], bits))
+    for index in range(test_split.shape[0]):
+        print(f'Pending files to load: {test_split.shape[0] - index}')
+        if len(modalities) == 1:
+            hash_codes_test_data[index] = np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'))
+        elif len(modalities) == 2:
+            hash_codes_test_data[index] = np.bitwise_xor(
+                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')),
+                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')))
+        elif len(modalities) == 3:
+            hash_codes_test_data[index] = np.bitwise_and(
+                np.bitwise_xor(
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'))
+                ),
+                np.bitwise_xor(
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'))
+                ),
+                np.bitwise_xor(
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'))
+                )
+            )
+        else:
+            raise ValueError('Unsupported number of modality')
+
+    # create final dataset
+    out_fn = out_fn.replace('.hdf5', '')
+    write_output(hash_codes_train_data, hash_codes_test_data, f'{out_fn}-{bits}-{"-".join(modalities)}.hdf5', 'euclidean')
+
+
 DATASETS = {
     "deep-image-96-angular": deep_image,
     "fashion-mnist-784-euclidean": fashion_mnist,
@@ -504,4 +600,6 @@ DATASETS = {
     "movielens1m-jaccard": movielens1m,
     "movielens10m-jaccard": movielens10m,
     "movielens20m-jaccard": movielens20m,
+    'vgg16-features': vgg16_features,
+    'muse-hash': lambda out_fn, bits, modalities: muse_hash(out_fn, modalities, bits)
 }
