@@ -502,7 +502,7 @@ def vgg16_features(out_fn):
     write_output(vgg16_train_data, vgg16_test_data, out_fn, 'euclidean')
 
 
-def muse_hash(out_fn, modalities, bits):
+def muse_hash(out_fn, modalities, bits, metric):
     DATA_INFO_PATH = './data/dataset/'
     HASH_CODES_PATH = './data/hash_codes/'
 
@@ -515,25 +515,25 @@ def muse_hash(out_fn, modalities, bits):
     for index in range(train_split.shape[0]):
         print(f'Pending files to load: {train_split.shape[0] - index}')
         if len(modalities) == 1:
-            hash_codes_train_data[index] = np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'))
+            hash_codes_train_data[index] = np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int)
         elif len(modalities) == 2:
             hash_codes_train_data[index] = np.bitwise_xor(
-                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt')),
-                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'))
+                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int),
+                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int)
             )
         elif len(modalities) == 3:
             hash_codes_train_data[index] = np.bitwise_and(
                 np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt')),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'))
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int)
                 ),
                 np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt')),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'))
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int)
                 ),
                 np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt')),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'))
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int)
                 )
             )
         else:
@@ -544,24 +544,24 @@ def muse_hash(out_fn, modalities, bits):
     for index in range(test_split.shape[0]):
         print(f'Pending files to load: {test_split.shape[0] - index}')
         if len(modalities) == 1:
-            hash_codes_test_data[index] = np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'))
+            hash_codes_test_data[index] = np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int)
         elif len(modalities) == 2:
             hash_codes_test_data[index] = np.bitwise_xor(
-                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')),
-                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')))
+                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int),
+                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')), dtype=int)
         elif len(modalities) == 3:
             hash_codes_test_data[index] = np.bitwise_and(
                 np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'))
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int)
                 ),
                 np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'))
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int)
                 ),
                 np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'))
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int),
+                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int)
                 )
             )
         else:
@@ -569,7 +569,10 @@ def muse_hash(out_fn, modalities, bits):
 
     # create final dataset
     out_fn = out_fn.replace('.hdf5', '')
-    write_output(hash_codes_train_data, hash_codes_test_data, f'{out_fn}-{bits}-{"-".join(modalities)}.hdf5', 'euclidean')
+    if metric == 'hamming':
+        write_output(hash_codes_train_data, hash_codes_test_data, f'{out_fn}-{metric}-{bits}-{"-".join(modalities)}.hdf5', metric, point_type='bit')
+    else:
+        write_output(hash_codes_train_data, hash_codes_test_data, f'{out_fn}-{metric}-{bits}-{"-".join(modalities)}.hdf5', metric)
 
 
 DATASETS = {
@@ -601,5 +604,5 @@ DATASETS = {
     "movielens10m-jaccard": movielens10m,
     "movielens20m-jaccard": movielens20m,
     'vgg16-features': vgg16_features,
-    'muse-hash': lambda out_fn, bits, modalities: muse_hash(out_fn, modalities, bits)
+    'muse-hash': lambda out_fn, bits, modalities, metric: muse_hash(out_fn, modalities, bits, metric)
 }

@@ -12,8 +12,6 @@ if __name__ == "__main__":
     if args.additional_args:
         parameters = json.loads(args.additional_args)
         parameters['out_fn'] = fn
-        meh = lambda out_fn, bits, modalities: print(out_fn, bits, modalities)
-        meh(**parameters)
         DATASETS[args.dataset](**parameters)
     else:
         DATASETS[args.dataset](fn)

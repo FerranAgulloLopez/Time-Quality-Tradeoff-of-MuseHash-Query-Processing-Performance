@@ -1,16 +1,92 @@
-## Set up
+# MuseHash Comparison
+_This adaptation was created as a results of the publication ..._
+
+### Introduction
+This repository contains an adaptation of the code from [http://github.com/erikbern/ann-benchmarks/](ANN Benchmark). The modifications are small and are meant to compare the method MuseHash with the baseline.
+
+The main change consists in the addition of two new datasets (vgg16-features and muse-hash) and a new evaluation metric (muse-hash).
+
+### How to set up
 - Install python3.9
 - Install requirements.txt
-- Set up data with this structure -> ...
-- Create datasets -> ...
-  - vgg16: `python3 create_dataset.py --dataset vgg16-features`
-  - museHash: 
-    - for each modality combination
-      - for each length -> `python3 create_dataset.py --dataset muse-hash --additional-args "{\"bits\": NUMBER_BITS,\"modalities\":MODALITIES_ARRAY}"`
-      - i.e. `python3 create_dataset.py --dataset muse-hash --additional-args "{\"bits\": 16,\"modalities\":[\"spatial\"]}"`
+- Create a data directory and populate it like the following:
+  - ./data/
+    - dataset/
+      - labels/
+        - label_1.txt
+        - label_2.txt
+        - ...
+      - data.txt
+      - retrieval.txt
+      - test.txt
+      - train.txt
+    - hash_codes/
+      - spatial/
+        - 16bit/
+          - bin_feature_1.txt
+          - bin_feature_2.txt
+          - ...
+        - 32bit/
+          - bin_feature_1.txt
+          - bin_feature_2.txt
+          - ...
+        - ...
+      - temporal/
+        - 16bit/
+          - bin_feature_1.txt
+          - bin_feature_2.txt
+          - ...
+        - 32bit/
+          - bin_feature_1.txt
+          - bin_feature_2.txt
+          - ...
+        - ...
+      - visual/
+        - 16bit/
+          - bin_feature_1.txt
+          - bin_feature_2.txt
+          - ...
+        - 32bit/
+          - bin_feature_1.txt
+          - bin_feature_2.txt
+          - ...
+        - ...
+    - vgg16_features/
+      - feature_1.txt
+      - feature_2.txt
+      - ...
+    
+### How to create the datasets
+For creating the dataset with vgg16 features
+```
+python3 create_dataset.py --dataset vgg16-features
+```
 
-## RUN
-`python3 run.py --dataset muse-hash-32-temporal --local --runs 1 --algorithm ball --count 30 --run-disabled --force`
+For creating the dataset with hash codes
+```
+python3 create_dataset.py --dataset muse-hash --additional-args "{\"bits\": NUMBER_BITS,\"modalities\": MODALITIES, \"metric\": METRIC}""
+```
+**remember to populate the variables NUMBER_BITS, MODALITIES and METRIC**, like the following:
+```
+python3 create_dataset.py --dataset muse-hash --additional-args "{\"bits\":256,\"modalities\":[\"temporal\", \"spatial\", \"visual\"], \"metric\": \"euclidean\"}"
+```
 
-## PLOT
-`python3 plot.py --dataset muse-hash-32-temporal --count 30 --recompute -x muse-hash-precision`
+### How to run
+For running:
+```
+python3 run.py --dataset DATASET_NAME --local --runs 1 --algorithm ALGORITHM_NAME --count NEIGHBOURS --run-disabled --force
+```
+**remember to populate the variables DATASET_NAME, ALGORITHM_NAME and NEIGHBOURS**, like the following:
+```
+python3 run.py --dataset vgg16-features --local --runs 1 --algorithm pynndescent --count 10 --run-disabled --force
+```
+
+### How to plot
+For plotting:
+```
+python3 plot.py --dataset DATASET_NAME --count 10 --recompute -x METRIC
+```
+**remember to populate the variables DATASET_NAME and METRIC**, like the following:
+```
+python3 plot.py --dataset vgg16-features --count 10 --recompute -x muse-hash-recall
+```

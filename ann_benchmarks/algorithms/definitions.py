@@ -30,7 +30,8 @@ def algorithm_status(definition):
             return InstantiationStatus.AVAILABLE
         else:
             return InstantiationStatus.NO_CONSTRUCTOR
-    except ImportError:
+    except ImportError as e:
+        print(f'Import error: {e}')
         return InstantiationStatus.NO_MODULE
 
 
