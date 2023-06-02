@@ -134,6 +134,8 @@ def main():
 
     random.shuffle(definitions)
 
+    print({definition.algorithm for definition in definitions})
+
     if args.algorithm:
         logger.info(f"running only {args.algorithm}")
         definitions = [d for d in definitions if d.algorithm == args.algorithm]

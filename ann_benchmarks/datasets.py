@@ -568,11 +568,10 @@ def muse_hash(out_fn, modalities, bits, metric):
             raise ValueError('Unsupported number of modality')
 
     # create final dataset
-    out_fn = out_fn.replace('.hdf5', '')
     if metric == 'hamming':
-        write_output(hash_codes_train_data, hash_codes_test_data, f'{out_fn}-{metric}-{bits}-{"-".join(modalities)}.hdf5', metric, point_type='bit')
+        write_output(hash_codes_train_data, hash_codes_test_data, out_fn, metric, point_type='bit')
     else:
-        write_output(hash_codes_train_data, hash_codes_test_data, f'{out_fn}-{metric}-{bits}-{"-".join(modalities)}.hdf5', metric)
+        write_output(hash_codes_train_data, hash_codes_test_data, out_fn, metric)
 
 
 DATASETS = {
