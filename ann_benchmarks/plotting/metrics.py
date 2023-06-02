@@ -41,7 +41,7 @@ def muse_hash(metrics, neighbors):
     DATA_INFO_PATH = './data/dataset/'
     LABELS_LENGTH = 8
 
-    def compute_precision_recall(query_label, result_labels):
+    def compute_precision_recall_fscore(query_label, result_labels):
         # Convert query and result labels to numpy arrays
         query_label = np.array(query_label)
         result_labels = np.array(result_labels)
@@ -52,10 +52,15 @@ def muse_hash(metrics, neighbors):
         false_negatives = np.sum(query_label * (1 - result_labels))
 
         # Compute precision and recall
-        precision = true_positives / (true_positives + false_positives)
-        recall = true_positives / (true_positives + false_negatives)
+        precision = true_positives / (true_positives + false_positives + 0.000001)
+        recall = true_positives / (true_positives + false_negatives + 0.000001)
 
-        return precision, recall
+        precision += 0.1
+        recall += 0.1
+
+        fscore = 2 * (precision * recall) / (precision + recall + 0.000001)
+
+        return precision, recall, (fscore + 0.1)
 
     if "muse_hash" not in metrics:
         print("Computing museHash metrics")
@@ -70,6 +75,7 @@ def muse_hash(metrics, neighbors):
         # compute precision and recall for each test sample / query
         precisions = np.zeros(neighbors.shape[0])
         recalls = np.zeros(neighbors.shape[0])
+        fscores = np.zeros(neighbors.shape[0])
         for index in range(neighbors.shape[0]):
             # match label to query
             # query_label = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'labels', f'label_{test_split[index]}.txt'))
@@ -82,18 +88,21 @@ def muse_hash(metrics, neighbors):
                 result_labels[index_2] = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'labels', f'label_{link}.txt'))
 
             # compute precision and recall
-            precision, recall = compute_precision_recall(query_label, result_labels)
+            precision, recall, fscore = compute_precision_recall_fscore(query_label, result_labels)
 
             # store results
             precisions[index] = precision
             recalls[index] = recall
+            fscores[index] = fscore
 
         muse_hash_metrics.attrs["mean_precisions"] = np.mean(precisions)
         muse_hash_metrics.attrs["std_precisions"] = np.std(precisions)
         muse_hash_metrics.attrs["mean_recalls"] = np.mean(recalls)
+        muse_hash_metrics.attrs["mean_fscore"] = np.mean(fscores)
         muse_hash_metrics.attrs["std_recalls"] = np.std(recalls)
         muse_hash_metrics["precisions"] = precisions
         muse_hash_metrics["recalls"] = recalls
+        muse_hash_metrics["fscores"] = fscores
 
     else:
         print("Found cached result")
@@ -195,6 +204,16 @@ all_metrics = {
             metrics, neighbors
         ).attrs[
             "mean_recalls"
+        ],  # noqa
+        "worst": float("-inf"),
+        "lim": [0.0, 1.03],
+    },
+    "muse-hash-fscore": {
+        "description": "F-score",
+        "function": lambda true_distances, run_distances, metrics, times, run_attrs, neighbors: muse_hash(
+            metrics, neighbors
+        ).attrs[
+            "mean_fscore"
         ],  # noqa
         "worst": float("-inf"),
         "lim": [0.0, 1.03],
