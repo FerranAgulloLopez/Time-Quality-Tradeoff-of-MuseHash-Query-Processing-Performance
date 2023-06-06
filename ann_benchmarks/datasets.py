@@ -548,7 +548,8 @@ def muse_hash(out_fn, modalities, bits, metric):
         elif len(modalities) == 2:
             hash_codes_test_data[index] = np.bitwise_xor(
                 np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int),
-                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt')), dtype=int)
+                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int)
+            )
         elif len(modalities) == 3:
             hash_codes_test_data[index] = np.bitwise_and(
                 np.bitwise_xor(
