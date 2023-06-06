@@ -17,48 +17,6 @@ float:
       run-groups:
         base:
           args: [[10, 50, 100, 200, 1000, 2000]]
-    luceneknn:
-      docker-tag: ann-benchmarks-luceneknn
-      module: ann_benchmarks.algorithms.luceneknn
-      constructor: PyLuceneKNN
-      base-args: [ "@metric", "@dimension" ]
-      run-groups:
-        M-4:
-          arg-groups:
-            - { "M": 4,  "efConstruction": 500 }
-          query-args: [ [ 10, 20, 40, 80, 120, 200, 400, 600, 800 ] ]
-        M-8:
-          arg-groups:
-            - { "M": 8,  "efConstruction": 500 }
-          query-args: [ [ 10, 20, 40, 80, 120, 200, 400, 600, 800 ] ]
-        M-12:
-          arg-groups:
-            - { "M": 12,  "efConstruction": 500 }
-          query-args: [ [ 10, 20, 40, 80, 120, 200, 400, 600, 800 ] ]
-        M-16:
-          arg-groups:
-            - { "M": 16,  "efConstruction": 500 }
-          query-args: [ [ 10, 20, 40, 80, 120, 200, 400, 600, 800 ] ]
-        M-24:
-          arg-groups:
-            - { "M": 24,  "efConstruction": 500 }
-          query-args: [ [ 10, 20, 40, 80, 120, 200, 400, 600, 800 ] ]
-        M-36:
-          arg-groups:
-            - { "M": 36,  "efConstruction": 500 }
-          query-args: [ [ 10, 20, 40, 80, 120, 200, 400, 600, 800 ] ]
-        M-48:
-          arg-groups:
-            - { "M": 48,  "efConstruction": 500 }
-          query-args: [ [ 10, 20, 40, 80, 120, 200, 400, 600, 800 ] ]
-        M-64:
-          arg-groups:
-            - { "M": 64,  "efConstruction": 500 }
-          query-args: [ [ 10, 20, 40, 80, 120, 200, 400, 600, 800 ] ]
-        M-96:
-          arg-groups:
-            - { "M": 96,  "efConstruction": 500 }
-          query-args: [ [ 10, 20, 40, 80, 120, 200, 400, 600, 800 ] ]
     hnswlib:
       docker-tag: ann-benchmarks-hnswlib
       module: ann_benchmarks.algorithms.hnswlib
@@ -225,15 +183,6 @@ float:
           args: ["@count"]
           query-args: [[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9,
                         0.925, 0.95, 0.97, 0.98, 0.99, 0.995]]
-    pgvector:
-      docker-tag: ann-benchmarks-pgvector
-      module: ann_benchmarks.algorithms.pgvector
-      constructor: PGVector
-      base-args: ["@metric"]
-      run-groups:
-        pgvector:
-          args: [[100, 200, 400, 1000, 2000, 4000]]
-          query-args: [[1, 2, 4, 10, 20, 40, 100]]
 
   euclidean:
     vamana(diskann):
@@ -379,16 +328,6 @@ float:
             - {"n_neighbors": 60, "diversify_prob": 0.0,
                "pruning_degree_multiplier":[2.0, 3.0], "leaf_size": 48}
           query-args: [[0.0, 0.04, 0.08, 0.12, 0.16, 0.20, 0.24, 0.28, 0.32, 0.36]]
-    elasticsearch:
-      docker-tag: ann-benchmarks-elasticsearch
-      module: ann_benchmarks.algorithms.elasticsearch
-      constructor: ElasticsearchKNN
-      base-args: ["@metric", "@dimension"]
-      run-groups:
-        m-16-ef-100:
-          arg-groups:
-            - {"m": 16,  "ef_construction": 100} # index_options
-          query-args: [[10, 20, 40, 80, 160]] # num_candidates
   angular:
     vamana(diskann):
       docker-tag: ann-benchmarks-diskann
@@ -552,16 +491,6 @@ float:
             - {"n_neighbors": 120, "diversify_prob": 0.125,
                "pruning_degree_multiplier":2.5, leaf_size: 35}
           query-args: [[0.16, 0.20, 0.24, 0.28, 0.32, 0.36]]
-    elasticsearch:
-      docker-tag: ann-benchmarks-elasticsearch
-      module: ann_benchmarks.algorithms.elasticsearch
-      constructor: ElasticsearchKNN
-      base-args: ["@metric", "@dimension"]
-      run-groups:
-        m-16-ef-100:
-          arg-groups:
-            - {"m": 16,  "ef_construction": 100} # index_options
-          query-args: [[10, 20, 40, 80, 160]] # num_candidates
 bit:
   hamming:
     mih:
