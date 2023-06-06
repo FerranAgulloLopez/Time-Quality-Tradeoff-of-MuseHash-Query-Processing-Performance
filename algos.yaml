@@ -101,48 +101,6 @@ float:
           arg-groups:
             - {"M": 96,  "efConstruction": 500}
           query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-
-    annoy:
-      docker-tag: ann-benchmarks-annoy
-      module: ann_benchmarks.algorithms.annoy
-      constructor: Annoy
-      base-args: ["@metric"]
-      run-groups:
-        annoy:
-          args: [[100, 200, 400]]
-          query-args: [[100, 200, 400, 1000, 2000, 4000, 10000, 20000, 40000,
-                      100000, 200000, 400000]]
-          # This run group produces 3 algorithm instances -- Annoy("angular",
-          # 100), Annoy("angular", 200), and Annoy("angular", 400) -- each of
-          # which will be used to run 12 different queries.
-    tinyknn:
-      docker-tag: ann-benchmarks-tinyknn
-      module: ann_benchmarks.algorithms.tinyknn
-      constructor: TinyKNN
-      base-args: ["@metric"]
-      run-groups:
-        # Arguments are "build_probes" and "skew_factor"
-        # Time to build the index is mostly a factor of the skew_factor
-        # 1 | 578.4s
-        # 2 | 1033.9s
-        # 3 | 1410.6s
-        # 4 | 2420.7s (?)
-        # 5 | 2206.8s
-        # 6 | 2443.1s
-        # Choices below are based on the graph in
-        # https://github.com/erikbern/ann-benchmarks/pull/391#issuecomment-1518093405
-        tinyknn_1:
-          args: [ 1, [1, 2, 3] ]
-          query-args: [[1, 2, 3, 4, 6, 8, 10, 13, 16, 20, 24, 28, 33, 38, 44, 50, 57, 64, 72, 80,
-                        88, 106, 126, 148, 172, 198, 256]]
-        tinyknn_2:
-          args: [ 2, [3, 4] ]
-          query-args: [[1, 2, 3, 4, 6, 8, 10, 13, 16, 20, 24, 28, 33, 38, 44, 50, 57, 64, 72, 80,
-                        88, 106, 126, 148, 172, 198, 256]]
-        tinyknn_3:
-          args: [ 3, [5] ]
-          query-args: [[1, 2, 3, 4, 6, 8, 10, 13, 16, 20, 24, 28, 33, 38, 44, 50, 57, 64, 72, 80,
-                        88, 106, 126, 148, 172, 198, 256]]
     Milvus(Knowhere):
       docker-tag: ann-benchmarks-milvus
       module: ann_benchmarks.algorithms.milvus
@@ -241,51 +199,6 @@ float:
       run-groups:
         empty:
           args: []
-    ball:
-      disabled: true
-      docker-tag: ann-benchmarks-sklearn
-      module: ann_benchmarks.algorithms.balltree
-      constructor: BallTree
-      base-args: ["@metric"]
-      run-groups:
-        ball:
-          args: &treeargs [[10, 20, 40, 100, 200, 400, 1000]]
-    kd:
-      docker-tag: ann-benchmarks-sklearn
-      module: ann_benchmarks.algorithms.kdtree
-      constructor: KDTree
-      base-args: ["@metric"]
-      run-groups:
-        ball:
-          args: *treeargs
-    ckdtree:
-      disable: true
-      docker-tag: ann-benchmarks-scipy
-      module: ann_benchmarks.algorithms.ckdtree
-      constructor: CKDTree
-      base-args: ["@metric"]
-      run-groups:
-        ball:
-          args: *treeargs
-    BallTree(nmslib):
-      docker-tag: ann-benchmarks-nmslib
-      module: ann_benchmarks.algorithms.nmslib
-      constructor: NmslibReuseIndex
-      base-args: ["@metric", "vptree"]
-      run-groups:
-        base:
-          # When @args is a dictionary, algorithm instances will be generated
-          # by taking the Cartesian product of all of its values.
-          arg-groups:
-                - {"tuneK": 10, "desiredRecall": [0.99, 0.97, 0.95, 0.9, 0.85, 0.8,
-                    0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]}
-                - False
-          # This run group produces thirteen algorithm instances:
-          # NmslibNewIndex("angular", "vptree", {"tuneK": 10,
-          # "desiredRecall": 0.99}), NmslibNewIndex("angular", "vptree",
-          # {"tuneK": 10, "desiredRecall": 0.97}), and so on up to
-          # NmslibNewIndex("angular", "vptree", {"tuneK": 10, "desiredRecall":
-          # 0.1}).
     pynndescent:
       docker-tag: ann-benchmarks-pynndescent
       module: ann_benchmarks.algorithms.pynndescent
@@ -321,29 +234,6 @@ float:
         pgvector:
           args: [[100, 200, 400, 1000, 2000, 4000]]
           query-args: [[1, 2, 4, 10, 20, 40, 100]]
-
-    redisearch:
-      docker-tag: ann-benchmarks-redisearch
-      module: ann_benchmarks.algorithms.redisearch
-      constructor: Redisearch
-      base-args: ["@metric"]
-      run-groups:
-        redisearch:
-          arg-groups: [[4, 8, 12, 16, 24, 36, 48, 64, 96]]
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-
-    weaviate:
-      docker-tag: ann-benchmarks-weaviate
-      module: ann_benchmarks.algorithms.weaviate
-      constructor: Weaviate
-      base-args: ["@metric"]
-      run-groups:
-        weaviate:
-          args: [
-            [8, 16, 24, 32, 40, 48, 64, 72], #maxConnections
-            [64, 128, 256, 512], #efConstruction
-          ]
-          query-args: [[16, 32, 48, 64, 96, 128, 256, 512, 768]]
 
   euclidean:
     vamana(diskann):
@@ -412,20 +302,6 @@ float:
         vamana_pq_125_32_1_112:
            args : [{'l_build': 125, 'max_outdegree': 32, 'alpha': 1, 'chunks': 112}]
            query-args : [[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]]
-    scann:
-      docker-tag: ann-benchmarks-scann
-      module: ann_benchmarks.algorithms.scann
-      constructor: Scann
-      run-groups:
-        scann1:
-          args: [[600], [.nan], [2], ["squared_l2"]]
-          query-args: [[[4, 40], [3, 30], [6, 60], [8, 74], [9, 78], [10, 82], [11, 85], [13, 100], [16, 120], [20, 140], [30, 180], [35, 240], [50, 360]]]
-        scann2:
-          args: [[2000], [.nan], [4], ["squared_l2"]]
-          query-args: [[[10, 100], [15, 140], [25, 160], [35, 190], [40, 200], [45, 220], [50, 240], [60, 250], [70, 300], [80, 400], [100, 500], [120, 600], [150, 800], [200, 900]]]
-        scann3:
-          args: [[100], [.nan], [4], ["squared_l2"]]
-          query-args: [[[2, 20], [3, 20], [3, 30], [4, 30], [5, 40], [8, 80]]]
     kgraph:
       disable: true
       docker-tag: ann-benchmarks-kgraph
@@ -477,32 +353,6 @@ float:
             - {"M": 8, "post": 0, "efConstruction": 400}
             - False
           query-args: [[1, 2, 5, 10, 20, 30, 50, 70, 90, 120, 160]]
-    SW-graph(nmslib):
-      docker-tag: ann-benchmarks-nmslib
-      module: ann_benchmarks.algorithms.nmslib
-      constructor: NmslibReuseIndex
-      base-args: ["@metric", "sw-graph"]
-      run-groups:
-        NN-24:
-          arg-groups:
-            - {"NN": 24}
-            - False
-          query-args: [[800, 400, 200, 100, 50, 30, 20, 15, 10, 5, 1]]
-        NN-16:
-          arg-groups:
-            - {"NN": 16}
-            - False
-          query-args: [[800, 400, 200, 100, 50, 30, 20, 15, 10, 5, 1]]
-        NN-10:
-          arg-groups:
-            - {"NN": 10}
-            - False
-          query-args: [[800, 400, 200, 100, 50, 30, 20, 15, 10, 5, 1]]
-        NN-5:
-          arg-groups:
-            - {"NN": 5}
-            - False
-          query-args: [[30, 25, 20, 15, 10, 5, 4, 3, 2, 1]]
     pynndescent:
       docker-tag: ann-benchmarks-pynndescent
       module: ann_benchmarks.algorithms.pynndescent
@@ -539,48 +389,6 @@ float:
           arg-groups:
             - {"m": 16,  "ef_construction": 100} # index_options
           query-args: [[10, 20, 40, 80, 160]] # num_candidates
-    hnsw(vespa):
-      docker-tag: ann-benchmarks-vespa
-      module: ann_benchmarks.algorithms.vespa
-      constructor: VespaHnsw
-      base-args: ["@metric", "@dimension"]
-      run-groups:
-        M-4:
-          arg-groups:
-            - {"M": 4, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-8:
-          arg-groups:
-            - {"M": 8, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-12:
-          arg-groups:
-            - {"M": 12, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-16:
-          arg-groups:
-            - {"M": 16, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-24:
-          arg-groups:
-            - {"M": 24, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-36:
-          arg-groups:
-            - {"M": 36, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-48:
-          arg-groups:
-            - {"M": 48, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-64:
-          arg-groups:
-            - {"M": 64, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-96:
-          arg-groups:
-            - {"M": 96, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
   angular:
     vamana(diskann):
       docker-tag: ann-benchmarks-diskann
@@ -699,28 +507,6 @@ float:
             - {"M": 12, "post": 0, "efConstruction": 800}
             - False
           query-args: [[1, 2, 5, 10, 15, 20, 30, 40, 50, 70, 80]]
-    SW-graph(nmslib):
-      docker-tag: ann-benchmarks-nmslib
-      module: ann_benchmarks.algorithms.nmslib
-      constructor: NmslibReuseIndex
-      base-args: ["@metric", "sw-graph"]
-      run-groups:
-        NN-30:
-          arg-groups:
-            - {"NN": 30}
-            - False
-          query-args: [[700, 650, 550, 450, 350, 275, 200, 150, 120, 80,
-              50, 30]]
-        NN-15:
-          arg-groups:
-            - {"NN": 15}
-            - False
-          query-args: [[80, 50, 30, 20]]
-        NN-3:
-          arg-groups:
-            - {"NN": 3}
-            - False
-          query-args: [[120, 80, 60, 40, 20, 10, 8, 4, 2]]
     rpforest:
       disable: true
       docker-tag: ann-benchmarks-rpforest
@@ -766,23 +552,6 @@ float:
             - {"n_neighbors": 120, "diversify_prob": 0.125,
                "pruning_degree_multiplier":2.5, leaf_size: 35}
           query-args: [[0.16, 0.20, 0.24, 0.28, 0.32, 0.36]]
-    scann:
-      docker-tag: ann-benchmarks-scann
-      module: ann_benchmarks.algorithms.scann
-      constructor: Scann
-      run-groups:
-        scann1:
-          args: [[2000], [0.2], [2], ["dot_product"]]
-          query-args: [[[1, 30], [2, 30], [4, 30], [8, 30], [30, 120], [35, 100], [40, 80], [45, 80], [50, 80], [55, 95], [60, 110], [65, 110], [75, 110], [90, 110], [110, 120], [130, 150], [150, 200], [170, 200], [200, 300], [220, 500], [250, 500], [310, 300], [400, 300], [500, 500], [800, 1000]]]
-        scann2:
-          args: [[1500], [0.55], [1], ["dot_product"]]
-          query-args: [[[1, 30], [2, 30], [4, 30], [8, 30], [8, 25], [10, 25], [12, 25], [13, 25], [14, 27], [15, 30], [17, 30], [18, 40], [20, 40], [22, 40], [25, 50], [30, 50], [35, 55], [50, 60], [60, 60], [80, 80], [100, 100]]]
-        scann3:
-          args: [[1000], [.2], [1], ["dot_product"]]
-          query-args: [[[1, 30], [2, 30], [4, 30], [8, 30], [9, 25], [11, 35], [12, 35], [13, 35], [14, 40], [15, 40], [16, 40], [17, 45], [20, 45], [20, 55], [25, 55], [25, 70], [30, 70], [40, 90], [50, 100], [60, 120], [70, 140]]]
-        scann4:
-          args: [[1400], [0.15], [3], ["dot_product"]]
-          query-args: [[[1, 30], [4, 30], [9, 30], [16, 32], [25, 50], [36, 72], [49, 98], [70, 150], [90, 200], [120, 210], [180, 270], [210, 330], [260, 400], [320, 500], [400, 600], [500, 700], [800, 900]]]
     elasticsearch:
       docker-tag: ann-benchmarks-elasticsearch
       module: ann_benchmarks.algorithms.elasticsearch
@@ -793,48 +562,6 @@ float:
           arg-groups:
             - {"m": 16,  "ef_construction": 100} # index_options
           query-args: [[10, 20, 40, 80, 160]] # num_candidates
-    hnsw(vespa):
-      docker-tag: ann-benchmarks-vespa
-      module: ann_benchmarks.algorithms.vespa
-      constructor: VespaHnsw
-      base-args: ["@metric", "@dimension"]
-      run-groups:
-        M-4:
-          arg-groups:
-            - {"M": 4, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-8:
-          arg-groups:
-            - {"M": 8, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-12:
-          arg-groups:
-            - {"M": 12, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-16:
-          arg-groups:
-            - {"M": 16, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-24:
-          arg-groups:
-            - {"M": 24, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-36:
-          arg-groups:
-            - {"M": 36, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-48:
-          arg-groups:
-            - {"M": 48, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-64:
-          arg-groups:
-            - {"M": 64, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
-        M-96:
-          arg-groups:
-            - {"M": 96, "efConstruction": 500}
-          query-args: [[10, 20, 40, 80, 120, 200, 400, 600, 800]]
 bit:
   hamming:
     mih:
@@ -918,19 +645,6 @@ bit:
             - {"n_neighbors": [120], "diversify_prob": [0.0, 1.0],
                "pruning_degree_multiplier":[2.0, 2.5], leaf_size: 80}
           query-args: [[0.08, 0.16, 0.20, 0.24, 0.28, 0.32, 0.36]]
-    annoy:
-      docker-tag: ann-benchmarks-annoy
-      module: ann_benchmarks.algorithms.annoy
-      constructor: Annoy
-      base-args: ["@metric"]
-      run-groups:
-        annoy:
-          args: [[100, 200, 400]]
-          query-args: [[100, 200, 400, 1000, 2000, 4000, 10000, 20000, 40000,
-                      100000, 200000, 400000]]
-          # This run group produces 3 algorithm instances -- Annoy("angular",
-          # 100), Annoy("angular", 200), and Annoy("angular", 400) -- each of
-          # which will be used to run 12 different queries.
   jaccard:
     bf:
       docker-tag: ann-benchmarks-sklearn
@@ -1014,39 +728,3 @@ bit:
             - {"M": 12, "post": 0, "efConstruction": 800}
             - False
           query-args: [[1, 2, 5, 10, 15, 20, 30, 40, 50, 70, 80]]
-    SW-graph(nmslib):
-      docker-tag: ann-benchmarks-nmslib
-      module: ann_benchmarks.algorithms.nmslib
-      constructor: NmslibReuseIndex
-      base-args: ["@metric", "sw-graph"]
-      run-groups:
-        NN-30:
-          arg-groups:
-            - {"NN": 30}
-            - False
-          query-args: [[700, 650, 550, 450, 350, 275, 200, 150, 120, 80,
-              50, 30]]
-        NN-15:
-          arg-groups:
-            - {"NN": 15}
-            - False
-          query-args: [[80, 50, 30, 20]]
-        NN-3:
-          arg-groups:
-            - {"NN": 3}
-            - False
-          query-args: [[120, 80, 60, 40, 20, 10, 8, 4, 2]]
-    BallTree(nmslib):
-      disable: true
-      docker-tag: ann-benchmarks-nmslib
-      module: ann_benchmarks.algorithms.nmslib
-      constructor: NmslibReuseIndex
-      base-args: ["@metric", "vptree"]
-      run-groups:
-        base:
-          # When @args is a dictionary, algorithm instances will be generated
-          # by taking the Cartesian product of all of its values.
-          arg-groups:
-                - {"tuneK": 10, "desiredRecall": [0.99, 0.97, 0.95, 0.9, 0.85, 0.8,
-                    0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]}
-                - False
