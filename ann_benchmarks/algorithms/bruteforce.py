@@ -14,7 +14,7 @@ class BruteForce(BaseANN):
 
     def fit(self, X):
         metric = {"angular": "cosine", "euclidean": "l2", "hamming": "hamming"}[self._metric]
-        self._nbrs = sklearn.neighbors.NearestNeighbors(algorithm="brute", metric=metric)
+        self._nbrs = sklearn.neighbors.NearestNeighbors(algorithm="brute", metric=metric, n_jobs=-1)
         self._nbrs.fit(X)
 
     def query(self, v, n):
