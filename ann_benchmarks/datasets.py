@@ -575,6 +575,12 @@ def muse_hash(out_fn, modalities, bits, metric):
         write_output(hash_codes_train_data, hash_codes_test_data, out_fn, metric)
 
 
+def fake_dataset(out_fn, train_size, bits):
+    hash_codes_train_data = np.random.rand(train_size, bits)
+    hash_codes_test_data = np.random.rand(450, bits)
+    write_output(hash_codes_train_data, hash_codes_test_data, out_fn, 'euclidean')
+
+
 DATASETS = {
     "deep-image-96-angular": deep_image,
     "fashion-mnist-784-euclidean": fashion_mnist,
@@ -627,6 +633,8 @@ DATASETS = {
     'muse-hash-visual-256-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 256, 'euclidean'),
     'muse-hash-visual-512-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 512, 'euclidean'),
     'muse-hash-visual-1024-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 1024, 'euclidean'),
-    'muse-hash-visual-2048-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 2048, 'euclidean')
-
+    'muse-hash-visual-2048-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 2048, 'euclidean'),
+    'fake-small': lambda out_fn: fake_dataset(out_fn, 7000, 2048),
+    'fake-medium': lambda out_fn: fake_dataset(out_fn, 56000, 2048),
+    'fake-large': lambda out_fn: fake_dataset(out_fn, 448000, 2048)
 }
