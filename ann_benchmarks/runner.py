@@ -142,6 +142,7 @@ function""" % (
             if query_arguments:
                 algo.set_query_arguments(*query_arguments)
             descriptor, results = run_individual_query(algo, X_train, X_test, distance, count, run_count, batch)
+            print(f"Queries per second: {1.0 / descriptor['best_search_time']}")
             descriptor["build_time"] = build_time
             descriptor["index_size"] = index_size
             descriptor["algo"] = definition.algorithm
