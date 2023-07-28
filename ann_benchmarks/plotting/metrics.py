@@ -37,9 +37,12 @@ def knn(dataset_distances, run_distances, count, metrics, epsilon=1e-3):
     return metrics["knn"]
 
 
-def muse_hash(metrics, neighbors):
-    DATA_INFO_PATH = './data/dataset/'
-    LABELS_LENGTH = 8
+def muse_hash(run_attrs, metrics, neighbors):
+    dataset_name = run_attrs["dataset"].split("-")[-1]
+    data_path = f'./data/{dataset_name}_dataset/'
+
+    # find labels length
+    labels_length = np.genfromtxt(os.path.join(data_path, 'labels', os.listdir(f'{data_path}/labels/')[0])).shape[-1]
 
     def compute_precision_recall_fscore(query_label, result_labels):
         # Convert query and result labels to numpy arrays
@@ -67,10 +70,10 @@ def muse_hash(metrics, neighbors):
         muse_hash_metrics = metrics.create_group("muse_hash")
 
         # load test split info
-        test_split = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'test.txt'), dtype=int)
+        test_split = np.genfromtxt(os.path.join(data_path, 'test.txt'), dtype=int)
 
         # load retrieval link info
-        retrieval_link = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'retrieval.txt'), dtype=int)
+        retrieval_link = np.genfromtxt(os.path.join(data_path, 'retrieval.txt'), dtype=int)
 
         # compute precision and recall for each test sample / query
         precisions = np.zeros(neighbors.shape[0])
@@ -79,13 +82,13 @@ def muse_hash(metrics, neighbors):
         for index in range(neighbors.shape[0]):
             # match label to query
             # query_label = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'labels', f'label_{test_split[index]}.txt'))
-            query_label = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'labels', f'label_{test_split[index]}.txt'))
+            query_label = np.genfromtxt(os.path.join(data_path, 'labels', f'label_{test_split[index]}.txt'))
 
             # match label to neighbours
-            result_labels = np.zeros((neighbors.shape[1], LABELS_LENGTH))
+            result_labels = np.zeros((neighbors.shape[1], labels_length))
             for index_2 in range(neighbors.shape[1]):
                 link = retrieval_link[neighbors[index, index_2]]
-                result_labels[index_2] = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'labels', f'label_{link}.txt'))
+                result_labels[index_2] = np.genfromtxt(os.path.join(data_path, 'labels', f'label_{link}.txt'))
 
             # compute precision and recall
             precision, recall, fscore = compute_precision_recall_fscore(query_label, result_labels)
@@ -190,7 +193,7 @@ all_metrics = {
     },
     "muse-hash-precision": {
         "description": "Precision",
-        "function": lambda true_distances, run_distances, metrics, times, run_attrs, neighbors: muse_hash(
+        "function": lambda true_distances, run_distances, metrics, times, run_attrs, neighbors: muse_hash(run_attrs,
             metrics, neighbors
         ).attrs[
             "mean_precisions"

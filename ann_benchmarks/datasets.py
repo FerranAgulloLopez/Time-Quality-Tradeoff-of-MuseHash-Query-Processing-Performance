@@ -480,93 +480,102 @@ def movielens20m(out_fn):
     movielens("ml-20m.zip", "ml-20m/ratings.csv", out_fn, ",", True)
 
 
-def vgg16_features(out_fn):
-    DATA_INFO_PATH = './data/dataset/'
-    VGG16_FEATURES_PATH = './data/vgg16_features/'
+def vgg16_features(out_fn, dataset_path):
+    vgg16_features_path = f'{dataset_path}/vgg16_features/'
 
     # load split info
-    train_split = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'train.txt'), dtype=int)
-    test_split = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'test.txt'), dtype=int)
+    train_split = np.genfromtxt(os.path.join(dataset_path, 'train.txt'), dtype=int)
+    test_split = np.genfromtxt(os.path.join(dataset_path, 'test.txt'), dtype=int)
 
     # load vgg16 data
     vgg16_train_data = np.zeros((train_split.shape[0], 4096))
     for index in range(train_split.shape[0]):
         print(f'Pending files to load: {train_split.shape[0] - index}')
-        vgg16_train_data[index] = np.genfromtxt(os.path.join(VGG16_FEATURES_PATH, f'feature_{train_split[index]}.txt'))
+        vgg16_train_data[index] = np.genfromtxt(os.path.join(vgg16_features_path, f'feature_{train_split[index]}.txt'))
     vgg16_test_data = np.zeros((test_split.shape[0], 4096))
     for index in range(test_split.shape[0]):
         print(f'Pending files to load: {test_split.shape[0] - index}')
-        vgg16_test_data[index] = np.genfromtxt(os.path.join(VGG16_FEATURES_PATH, f'feature_{test_split[index]}.txt'))
+        vgg16_test_data[index] = np.genfromtxt(os.path.join(vgg16_features_path, f'feature_{test_split[index]}.txt'))
 
     # create final dataset
     write_output(vgg16_train_data, vgg16_test_data, out_fn, 'euclidean')
 
 
-def muse_hash(out_fn, modalities, bits, metric):
-    DATA_INFO_PATH = './data/dataset/'
-    HASH_CODES_PATH = './data/hash_codes/'
+def muse_hash(out_fn, dataset_path, modalities, bits, metric):
+
+    def populate_hash_codes(path, split, data, modalities):
+        for index in range(split.shape[0]):
+            print(f'Pending files to load: {split.shape[0] - index}')
+            if len(modalities) == 1:
+                data[index] = np.genfromtxt(os.path.join(path, modalities[0], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+            elif len(modalities) == 2:
+                data[index] = np.bitwise_xor(
+                    np.genfromtxt(os.path.join(path, modalities[0], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int),
+                    np.genfromtxt(os.path.join(path, modalities[1], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+                )
+            elif len(modalities) == 3:
+                data[index] = np.bitwise_and(
+                    np.bitwise_xor(
+                        np.genfromtxt(os.path.join(path, modalities[0], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int),
+                        np.genfromtxt(os.path.join(path, modalities[1], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+                    ),
+                    np.bitwise_xor(
+                        np.genfromtxt(os.path.join(path, modalities[0], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int),
+                        np.genfromtxt(os.path.join(path, modalities[2], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+                    ),
+                    np.bitwise_xor(
+                        np.genfromtxt(os.path.join(path, modalities[1], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int),
+                        np.genfromtxt(os.path.join(path, modalities[2], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+                    )
+                )
+            elif len(modalities) == 4:
+                aux1 = np.bitwise_and(
+                    np.bitwise_xor(
+                        np.genfromtxt(os.path.join(path, modalities[0], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int),
+                        np.genfromtxt(os.path.join(path, modalities[1], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+                    ),
+                    np.bitwise_xor(
+                        np.genfromtxt(os.path.join(path, modalities[0], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int),
+                        np.genfromtxt(os.path.join(path, modalities[2], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+                    )
+                )
+                aux2 = np.bitwise_and(
+                    aux1,
+                    np.bitwise_xor(
+                        np.genfromtxt(os.path.join(path, modalities[0], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int),
+                        np.genfromtxt(os.path.join(path, modalities[3], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+                    ),
+                    np.bitwise_xor(
+                        np.genfromtxt(os.path.join(path, modalities[1], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int),
+                        np.genfromtxt(os.path.join(path, modalities[2], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+                    )
+                )
+                data[index] = np.bitwise_and(
+                    aux2,
+                    np.bitwise_xor(
+                        np.genfromtxt(os.path.join(path, modalities[1], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int),
+                        np.genfromtxt(os.path.join(path, modalities[3], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+                    ),
+                    np.bitwise_xor(
+                        np.genfromtxt(os.path.join(path, modalities[2], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int),
+                        np.genfromtxt(os.path.join(path, modalities[3], f'{bits}bit', f'bin_feature_{split[index]}.txt'), dtype=int)
+                    )
+                )
+            else:
+                raise ValueError('Unsupported number of modality')
+        return data
 
     # load split info
-    train_split = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'train.txt'), dtype=int)
-    test_split = np.genfromtxt(os.path.join(DATA_INFO_PATH, 'test.txt'), dtype=int)
+    train_split = np.genfromtxt(os.path.join(dataset_path, 'train.txt'), dtype=int)
+    test_split = np.genfromtxt(os.path.join(dataset_path, 'test.txt'), dtype=int)
 
     # load train hash codes data
     hash_codes_train_data = np.zeros((train_split.shape[0], bits))
-    for index in range(train_split.shape[0]):
-        print(f'Pending files to load: {train_split.shape[0] - index}')
-        if len(modalities) == 1:
-            hash_codes_train_data[index] = np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int)
-        elif len(modalities) == 2:
-            hash_codes_train_data[index] = np.bitwise_xor(
-                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int),
-                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int)
-            )
-        elif len(modalities) == 3:
-            hash_codes_train_data[index] = np.bitwise_and(
-                np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int)
-                ),
-                np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int)
-                ),
-                np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{train_split[index]}.txt'), dtype=int)
-                )
-            )
-        else:
-            raise ValueError('Unsupported number of modality')
+    hash_codes_train_data = populate_hash_codes(f'{dataset_path}/hash_codes/', train_split, hash_codes_train_data, modalities)
 
     # load test hash codes data
     hash_codes_test_data = np.zeros((test_split.shape[0], bits))
-    for index in range(test_split.shape[0]):
-        print(f'Pending files to load: {test_split.shape[0] - index}')
-        if len(modalities) == 1:
-            hash_codes_test_data[index] = np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int)
-        elif len(modalities) == 2:
-            hash_codes_test_data[index] = np.bitwise_xor(
-                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int),
-                np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int)
-            )
-        elif len(modalities) == 3:
-            hash_codes_test_data[index] = np.bitwise_and(
-                np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int)
-                ),
-                np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[0], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int)
-                ),
-                np.bitwise_xor(
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[1], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int),
-                    np.genfromtxt(os.path.join(HASH_CODES_PATH, modalities[2], f'{bits}bit', f'bin_feature_{test_split[index]}.txt'), dtype=int)
-                )
-            )
-        else:
-            raise ValueError('Unsupported number of modality')
+    hash_codes_test_data = populate_hash_codes(f'{dataset_path}/hash_codes/', test_split, hash_codes_test_data, modalities)
 
     # create final dataset
     if metric == 'hamming':
@@ -609,31 +618,64 @@ DATASETS = {
     "movielens1m-jaccard": movielens1m,
     "movielens10m-jaccard": movielens10m,
     "movielens20m-jaccard": movielens20m,
-    'vgg16-features': vgg16_features,
-    'muse-hash-visual-temporal-spatial-16-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal', 'spatial'], 16, 'euclidean'),
-    'muse-hash-visual-temporal-spatial-32-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal', 'spatial'], 32, 'euclidean'),
-    'muse-hash-visual-temporal-spatial-64-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal', 'spatial'], 64, 'euclidean'),
-    'muse-hash-visual-temporal-spatial-128-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal', 'spatial'], 128, 'euclidean'),
-    'muse-hash-visual-temporal-spatial-256-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal', 'spatial'], 256, 'euclidean'),
-    'muse-hash-visual-temporal-spatial-512-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal', 'spatial'], 512, 'euclidean'),
-    'muse-hash-visual-temporal-spatial-1024-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal', 'spatial'], 1024, 'euclidean'),
-    'muse-hash-visual-temporal-spatial-2048-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal', 'spatial'], 2048, 'euclidean'),
-    'muse-hash-visual-temporal-16-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal'], 16, 'euclidean'),
-    'muse-hash-visual-temporal-32-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal'], 32, 'euclidean'),
-    'muse-hash-visual-temporal-64-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal'], 64, 'euclidean'),
-    'muse-hash-visual-temporal-128-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal'], 128, 'euclidean'),
-    'muse-hash-visual-temporal-256-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal'], 256, 'euclidean'),
-    'muse-hash-visual-temporal-512-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal'], 512, 'euclidean'),
-    'muse-hash-visual-temporal-1024-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal'], 1024, 'euclidean'),
-    'muse-hash-visual-temporal-2048-euclidean': lambda out_fn: muse_hash(out_fn, ['visual', 'temporal'], 2048, 'euclidean'),
-    'muse-hash-visual-16-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 16, 'euclidean'),
-    'muse-hash-visual-32-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 32, 'euclidean'),
-    'muse-hash-visual-64-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 64, 'euclidean'),
-    'muse-hash-visual-128-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 128, 'euclidean'),
-    'muse-hash-visual-256-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 256, 'euclidean'),
-    'muse-hash-visual-512-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 512, 'euclidean'),
-    'muse-hash-visual-1024-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 1024, 'euclidean'),
-    'muse-hash-visual-2048-euclidean': lambda out_fn: muse_hash(out_fn, ['visual'], 2048, 'euclidean'),
+    'vgg16-features-au_air': lambda out_fn: vgg16_features(out_fn, './data/au_air_dataset'),
+    'vgg16-features-lcs': lambda out_fn: vgg16_features(out_fn, './data/lcs_dataset'),
+    'muse-hash-visual-temporal-spatial-16-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal', 'spatial'], 16, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-32-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal', 'spatial'], 32, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-64-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal', 'spatial'], 64, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-128-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal', 'spatial'], 128, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-256-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal', 'spatial'], 256, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-512-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal', 'spatial'], 512, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-1024-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal', 'spatial'], 1024, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-2048-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal', 'spatial'], 2048, 'euclidean'),
+    'muse-hash-visual-temporal-16-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal'], 16, 'euclidean'),
+    'muse-hash-visual-temporal-32-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal'], 32, 'euclidean'),
+    'muse-hash-visual-temporal-64-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal'], 64, 'euclidean'),
+    'muse-hash-visual-temporal-128-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal'], 128, 'euclidean'),
+    'muse-hash-visual-temporal-256-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal'], 256, 'euclidean'),
+    'muse-hash-visual-temporal-512-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal'], 512, 'euclidean'),
+    'muse-hash-visual-temporal-1024-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal'], 1024, 'euclidean'),
+    'muse-hash-visual-temporal-2048-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual', 'temporal'], 2048, 'euclidean'),
+    'muse-hash-visual-16-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual'], 16, 'euclidean'),
+    'muse-hash-visual-32-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual'], 32, 'euclidean'),
+    'muse-hash-visual-64-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual'], 64, 'euclidean'),
+    'muse-hash-visual-128-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual'], 128, 'euclidean'),
+    'muse-hash-visual-256-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual'], 256, 'euclidean'),
+    'muse-hash-visual-512-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual'], 512, 'euclidean'),
+    'muse-hash-visual-1024-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual'], 1024, 'euclidean'),
+    'muse-hash-visual-2048-euclidean-au_air': lambda out_fn: muse_hash(out_fn, './data/au_air_dataset', ['visual'], 2048, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-textual-16-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial', 'textual'], 16, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-textual-32-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial', 'textual'], 32, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-textual-64-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial', 'textual'], 64, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-textual-128-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial', 'textual'], 128, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-textual-256-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial', 'textual'], 256, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-textual-512-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial', 'textual'], 512, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-textual-1024-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial', 'textual'], 1024, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-textual-2048-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial', 'textual'], 2048, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-16-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial'], 16, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-32-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial'], 32, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-64-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial'], 64, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-128-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial'], 128, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-256-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial'], 256, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-512-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial'], 512, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-1024-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial'], 1024, 'euclidean'),
+    'muse-hash-visual-temporal-spatial-2048-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal', 'spatial'], 2048, 'euclidean'),
+    'muse-hash-visual-temporal-16-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal'], 16, 'euclidean'),
+    'muse-hash-visual-temporal-32-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal'], 32, 'euclidean'),
+    'muse-hash-visual-temporal-64-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal'], 64, 'euclidean'),
+    'muse-hash-visual-temporal-128-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal'], 128, 'euclidean'),
+    'muse-hash-visual-temporal-256-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal'], 256, 'euclidean'),
+    'muse-hash-visual-temporal-512-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal'], 512, 'euclidean'),
+    'muse-hash-visual-temporal-1024-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal'], 1024, 'euclidean'),
+    'muse-hash-visual-temporal-2048-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual', 'temporal'], 2048, 'euclidean'),
+    'muse-hash-visual-16-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 16, 'euclidean'),
+    'muse-hash-visual-32-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 32, 'euclidean'),
+    'muse-hash-visual-64-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 64, 'euclidean'),
+    'muse-hash-visual-128-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 128, 'euclidean'),
+    'muse-hash-visual-256-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 256, 'euclidean'),
+    'muse-hash-visual-512-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 512, 'euclidean'),
+    'muse-hash-visual-1024-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 1024, 'euclidean'),
+    'muse-hash-visual-2048-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 2048, 'euclidean'),
     'fake-small': lambda out_fn: fake_dataset(out_fn, 7000, 2048),
     'fake-medium': lambda out_fn: fake_dataset(out_fn, 56000, 2048),
     'fake-large': lambda out_fn: fake_dataset(out_fn, 448000, 2048)

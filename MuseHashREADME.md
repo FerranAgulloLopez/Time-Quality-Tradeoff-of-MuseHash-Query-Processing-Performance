@@ -10,16 +10,16 @@ The main change consists in the addition of two new datasets (vgg16-features and
 - Install python3.9
 - Install requirements.txt
 - Create a data directory and populate it like the following:
-  - ./data/
-    - dataset/
-      - labels/
+```
+- ./data/
+  - au_air_dataset/
+    - retrieval.txt
+    - test.txt
+    - train.txt
+    - labels/
         - label_1.txt
         - label_2.txt
         - ...
-      - data.txt
-      - retrieval.txt
-      - test.txt
-      - train.txt
     - hash_codes/
       - spatial/
         - 16bit/
@@ -55,20 +55,19 @@ The main change consists in the addition of two new datasets (vgg16-features and
       - feature_1.txt
       - feature_2.txt
       - ...
-    
-### How to create the datasets
-For creating the dataset with vgg16 features
-```
-python3 create_dataset.py --dataset vgg16-features
+  - lcs_dataset/
+    - ...
 ```
 
-For creating the dataset with hash codes
+### How to create the datasets
+For creating the dataset with vgg16 features:
 ```
-python3 create_dataset.py --dataset muse-hash --additional-args "{\"bits\": NUMBER_BITS,\"modalities\": MODALITIES, \"metric\": METRIC}""
+python3 create_dataset.py --dataset vgg16-features-[...]
 ```
-**remember to populate the variables NUMBER_BITS, MODALITIES and METRIC**, like the following:
+
+For creating the dataset with hash codes:
 ```
-python3 create_dataset.py --dataset muse-hash --additional-args "{\"bits\":256,\"modalities\":[\"temporal\", \"spatial\", \"visual\"], \"metric\": \"euclidean\"}"
+python3 create_dataset.py --dataset muse-hash-[...]
 ```
 
 ### How to run
@@ -78,7 +77,7 @@ python3 run.py --dataset DATASET_NAME --local --runs 1 --algorithm ALGORITHM_NAM
 ```
 **remember to populate the variables DATASET_NAME, ALGORITHM_NAME and NEIGHBOURS**, like the following:
 ```
-python3 run.py --dataset vgg16-features --local --runs 1 --algorithm pynndescent --count 10 --run-disabled --force
+python3 run.py --dataset vgg16-features-au_air --local --runs 1 --algorithm pynndescent --count 10 --run-disabled --force
 ```
 
 ### How to plot
