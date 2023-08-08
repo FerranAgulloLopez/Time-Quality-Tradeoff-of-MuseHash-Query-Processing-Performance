@@ -2,13 +2,14 @@
 _This adaptation was created as a results of the publication ..._
 
 ### Introduction
-This repository contains an adaptation of the code from [http://github.com/erikbern/ann-benchmarks/](ANN Benchmark). The modifications are small and are meant to compare the method MuseHash with the baseline.
+This repository contains an adaptation of the code from [ANN Benchmark](http://github.com/erikbern/ann-benchmarks/). The modifications are small and are meant to compare the method MuseHash with the baseline.
 
 The main change consists in the addition of two new datasets (vgg16-features and muse-hash) and a new evaluation metric (muse-hash).
 
 ### How to set up
 - Install python3.9
 - Install requirements.txt
+- Install cuml ([check official documentation](https://docs.rapids.ai/install#selector)) -> pip install cuml-cu11 --extra-index-url=https://pypi.nvidia.com 
 - Create a data directory and populate it like the following:
 ```
 - ./data/

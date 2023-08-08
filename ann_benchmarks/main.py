@@ -7,11 +7,11 @@ import random
 import shutil
 import sys
 
-import docker
+#import docker
 import psutil
 
 from .algorithms.definitions import (InstantiationStatus, algorithm_status,
-                                     get_definitions, list_algorithms)
+                                     get_definitions, list_algorithms, Definition)
 from .constants import INDEX_DIR
 from .datasets import DATASETS, get_dataset
 from .results import get_result_filename
@@ -30,18 +30,21 @@ def positive_int(s):
 
 
 def run_worker(cpu, args, queue):
-    while not queue.empty():
-        definition = queue.get()
-        if args.local:
-            run(definition, args.dataset, args.count, args.runs, args.batch)
-        else:
-            memory_margin = 500e6  # reserve some extra memory for misc stuff
-            mem_limit = int((psutil.virtual_memory().available - memory_margin) / args.parallelism)
-            cpu_limit = str(cpu)
-            if args.batch:
-                cpu_limit = "0-%d" % (multiprocessing.cpu_count() - 1)
+    if not isinstance(queue, Definition):
+        while not queue.empty():
+            definition = queue.get()
+            if args.local:
+                run(definition, args.dataset, args.count, args.runs, args.batch)
+            else:
+                memory_margin = 500e6  # reserve some extra memory for misc stuff
+                mem_limit = int((psutil.virtual_memory().available - memory_margin) / args.parallelism)
+                cpu_limit = str(cpu)
+                if args.batch:
+                    cpu_limit = "0-%d" % (multiprocessing.cpu_count() - 1)
 
-            run_docker(definition, args.dataset, args.count, args.runs, args.timeout, args.batch, cpu_limit, mem_limit)
+                run_docker(definition, args.dataset, args.count, args.runs, args.timeout, args.batch, cpu_limit, mem_limit)
+    else:
+        run(queue, args.dataset, args.count, args.runs, args.batch)
 
 
 def main():
@@ -205,14 +208,17 @@ def main():
     queue = multiprocessing.Queue()
     for definition in definitions:
         queue.put(definition)
-    if args.batch and args.parallelism > 1:
-        raise Exception(
-            f"Batch mode uses all available CPU resources, --parallelism should be set to 1. (Was: {args.parallelism})"
-        )
-    try:
-        workers = [multiprocessing.Process(target=run_worker, args=(i + 1, args, queue)) for i in range(args.parallelism)]
-        [worker.start() for worker in workers]
-        [worker.join() for worker in workers]
-    finally:
-        logger.info("Terminating %d workers" % len(workers))
-        [worker.terminate() for worker in workers]
+    if queue.qsize() > 1:
+        if args.batch and args.parallelism > 1:
+            raise Exception(
+                f"Batch mode uses all available CPU resources, --parallelism should be set to 1. (Was: {args.parallelism})"
+            )
+        try:
+            workers = [multiprocessing.Process(target=run_worker, args=(i + 1, args, queue)) for i in range(args.parallelism)]
+            [worker.start() for worker in workers]
+            [worker.join() for worker in workers]
+        finally:
+            logger.info("Terminating %d workers" % len(workers))
+            [worker.terminate() for worker in workers]
+    else:
+        run_worker(None, args, definitions[0])

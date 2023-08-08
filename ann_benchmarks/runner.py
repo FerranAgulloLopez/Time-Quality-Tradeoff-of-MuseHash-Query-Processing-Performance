@@ -6,8 +6,8 @@ import threading
 import time
 import traceback
 
-import colors
-import docker
+# import colors
+# import docker
 import numpy
 import psutil
 
@@ -244,7 +244,7 @@ def run_docker(definition, dataset, count, runs, timeout, batch, cpu_limit, mem_
 
     def stream_logs():
         for line in container.logs(stream=True):
-            logger.info(colors.color(line.decode().rstrip(), fg="blue"))
+            logger.info(line.decode().rstrip())
 
     t = threading.Thread(target=stream_logs, daemon=True)
     t.start()
@@ -271,5 +271,5 @@ def _handle_container_return_value(return_value, container, logger):
         msg = base_msg + "returned exit code %d" % (exit_code)
 
     if exit_code not in [0, None]:
-        logger.error(colors.color(container.logs().decode(), fg="red"))
+        logger.error(container.logs().decode(), fg="red")
         logger.error(msg)
