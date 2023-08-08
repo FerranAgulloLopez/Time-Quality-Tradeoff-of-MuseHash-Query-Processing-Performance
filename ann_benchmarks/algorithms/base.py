@@ -1,9 +1,16 @@
-from multiprocessing.pool import ThreadPool
+import multiprocessing
+import os
 
 import psutil
 
 
 class BaseANN(object):
+
+    def __init__(self, query_threads=None):
+        self.query_threads = query_threads
+        if self.query_threads is None:
+            self.query_threads = os.cpu_count()
+
     def done(self):
         pass
 
@@ -23,7 +30,9 @@ class BaseANN(object):
         """Provide all queries at once and let algorithm figure out
         how to handle it. Default implementation uses a ThreadPool
         to parallelize query processing."""
-        pool = ThreadPool()
+        multiprocessing.set_start_method('spawn')
+        print(f'Making queries in batch with {self.query_threads} simultaneous threads')
+        pool = multiprocessing.pool.ThreadPool(processes=self.query_threads)
         self.res = pool.map(lambda q: self.query(q, n), X)
 
     def get_batch_results(self):

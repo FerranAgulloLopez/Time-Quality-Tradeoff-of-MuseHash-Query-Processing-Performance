@@ -8,13 +8,14 @@ from .base import BaseANN
 
 
 class BruteForce(BaseANN):
-    def __init__(self, metric, workers=-1):
+    def __init__(self, metric, workers=-1, query_threads=None):
         if metric not in ("angular", "euclidean", "hamming"):
             raise NotImplementedError("BruteForce doesn't support metric %s" % metric)
         self._metric = metric
         self.workers = workers
         self.name = "BruteForce()"
         print(f'Number of workers: {self.workers}')
+        super().__init__(query_threads)
 
     def fit(self, X):
         metric = {"angular": "cosine", "euclidean": "l2", "hamming": "hamming"}[self._metric]
