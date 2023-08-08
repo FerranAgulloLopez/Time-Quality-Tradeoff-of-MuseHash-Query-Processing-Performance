@@ -6,8 +6,6 @@ import threading
 import time
 import traceback
 
-# import colors
-# import docker
 import numpy
 import psutil
 

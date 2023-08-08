@@ -63,7 +63,7 @@ def write_output(train, test, fn, distance, point_type="float", count=100):
     distances = f.create_dataset("distances", (len(test), count), dtype="f")
     bf = BruteForce(distance)
 
-    bf.fit(train)
+    bf.fit_single(train)
     for i, x in enumerate(test):
         if i % 1000 == 0:
             print("%d/%d..." % (i, len(test)))
