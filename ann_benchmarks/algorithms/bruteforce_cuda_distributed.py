@@ -1,16 +1,14 @@
+import os
+
 import cuml.neighbors
+import cupy as cp
+import dask_cudf
 import numpy as np
+from cudf import DataFrame
+from cuml.dask.common.utils import persist_across_workers
+from dask.distributed import wait
 from dask_cuda import LocalCUDACluster
 from distributed import Client
-from dask.distributed import wait
-from cuml.dask.common.utils import persist_across_workers
-import dask_cudf
-
-import numpy as np
-import cupy as cp
-from cudf import DataFrame
-from cuml.dask.neighbors import NearestNeighbors
-import os
 
 from .base import BaseANN
 
