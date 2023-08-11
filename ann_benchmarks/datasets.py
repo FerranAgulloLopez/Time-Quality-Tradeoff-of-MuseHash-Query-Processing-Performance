@@ -48,7 +48,7 @@ def get_dataset(which):
 
 
 def write_output(train, test, fn, distance, point_type="float", count=100):
-    from ann_benchmarks.algorithms.bruteforce import BruteForce
+    from ann_benchmarks.algorithms.bruteforce import bruteforce
 
     f = h5py.File(fn, "w")
     f.attrs["type"] = "dense"
@@ -61,7 +61,7 @@ def write_output(train, test, fn, distance, point_type="float", count=100):
     f.create_dataset("test", (len(test), len(test[0])), dtype=test.dtype)[:] = test
     neighbors = f.create_dataset("neighbors", (len(test), count), dtype="i")
     distances = f.create_dataset("distances", (len(test), count), dtype="f")
-    bf = BruteForce(distance)
+    bf = bruteforce(distance)
 
     bf.fit_single(train)
     for i, x in enumerate(test):
@@ -676,7 +676,16 @@ DATASETS = {
     'muse-hash-visual-512-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 512, 'euclidean'),
     'muse-hash-visual-1024-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 1024, 'euclidean'),
     'muse-hash-visual-2048-euclidean-lcs': lambda out_fn: muse_hash(out_fn, './data/lcs_dataset', ['visual'], 2048, 'euclidean'),
-    'fake-small': lambda out_fn: fake_dataset(out_fn, 7000, 2048),
-    'fake-medium': lambda out_fn: fake_dataset(out_fn, 56000, 2048),
-    'fake-large': lambda out_fn: fake_dataset(out_fn, 448000, 2048)
+    'fake-small-32': lambda out_fn: fake_dataset(out_fn, 28000, 32),
+    'fake-small-128': lambda out_fn: fake_dataset(out_fn, 28000, 128),
+    'fake-small-512': lambda out_fn: fake_dataset(out_fn, 28000, 512),
+    'fake-small-2048': lambda out_fn: fake_dataset(out_fn, 28000, 2048),
+    'fake-medium-32': lambda out_fn: fake_dataset(out_fn, 112000, 32),
+    'fake-medium-128': lambda out_fn: fake_dataset(out_fn, 112000, 128),
+    'fake-medium-512': lambda out_fn: fake_dataset(out_fn, 112000, 512),
+    'fake-medium-2048': lambda out_fn: fake_dataset(out_fn, 112000, 2048),
+    'fake-large-32': lambda out_fn: fake_dataset(out_fn, 448000, 32),
+    'fake-large-128': lambda out_fn: fake_dataset(out_fn, 448000, 128),
+    'fake-large-512': lambda out_fn: fake_dataset(out_fn, 448000, 512),
+    'fake-large-2048': lambda out_fn: fake_dataset(out_fn, 448000, 2048)
 }
