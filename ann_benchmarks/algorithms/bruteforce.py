@@ -10,11 +10,11 @@ class bruteforce(BaseANN):
             raise NotImplementedError("BruteForce doesn't support metric %s" % metric)
         self.metric = {"angular": "cosine", "euclidean": "l2", "hamming": "hamming"}[metric]
         self.workers = workers
-        self.name = "BruteForce()"
+        self.name = "bruteforce()"
         print(f'Number of workers: {self.workers}')
         super().__init__(query_threads)
 
-    def fit_single(self, X):
+    def fit_single(self, index, X):
         self.nbrs = sklearn.neighbors.NearestNeighbors(algorithm="brute", metric=self.metric, n_jobs=self.workers)
         self.nbrs.fit(X)
 

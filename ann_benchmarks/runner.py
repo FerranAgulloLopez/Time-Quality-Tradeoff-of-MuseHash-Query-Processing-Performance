@@ -1,13 +1,8 @@
 import argparse
 import json
-import logging
-import os
-import threading
 import time
-import traceback
 
 import numpy
-import psutil
 
 from .algorithms.definitions import Definition, instantiate_algorithm
 from .datasets import DATASETS, get_dataset
@@ -195,79 +190,3 @@ def run_from_cmdline():
         disabled=False,
     )
     run(definition, args.dataset, args.count, args.runs, args.batch)
-
-
-def run_docker(definition, dataset, count, runs, timeout, batch, cpu_limit, mem_limit=None):
-    cmd = [
-        "--dataset",
-        dataset,
-        "--algorithm",
-        definition.algorithm,
-        "--module",
-        definition.module,
-        "--constructor",
-        definition.constructor,
-        "--runs",
-        str(runs),
-        "--count",
-        str(count),
-    ]
-    if batch:
-        cmd += ["--batch"]
-    cmd.append(json.dumps(definition.arguments))
-    cmd += [json.dumps(qag) for qag in definition.query_argument_groups]
-
-    client = docker.from_env()
-    if mem_limit is None:
-        mem_limit = psutil.virtual_memory().available
-
-    container = client.containers.run(
-        definition.docker_tag,
-        cmd,
-        volumes={
-            os.path.abspath("ann_benchmarks"): {"bind": "/home/app/ann_benchmarks", "mode": "ro"},
-            os.path.abspath("data"): {"bind": "/home/app/data", "mode": "ro"},
-            os.path.abspath("results"): {"bind": "/home/app/results", "mode": "rw"},
-        },
-        cpuset_cpus=cpu_limit,
-        mem_limit=mem_limit,
-        detach=True,
-    )
-    logger = logging.getLogger(f"annb.{container.short_id}")
-
-    logger.info(
-        "Created container %s: CPU limit %s, mem limit %s, timeout %d, command %s"
-        % (container.short_id, cpu_limit, mem_limit, timeout, cmd)
-    )
-
-    def stream_logs():
-        for line in container.logs(stream=True):
-            logger.info(line.decode().rstrip())
-
-    t = threading.Thread(target=stream_logs, daemon=True)
-    t.start()
-
-    try:
-        return_value = container.wait(timeout=timeout)
-        _handle_container_return_value(return_value, container, logger)
-    except:
-        logger.error("Container.wait for container %s failed with exception" % container.short_id)
-        traceback.print_exc()
-    finally:
-        logger.info("Removing container")
-        container.remove(force=True)
-
-
-def _handle_container_return_value(return_value, container, logger):
-    base_msg = "Child process for container %s" % (container.short_id)
-    if type(return_value) is dict:  # The return value from container.wait changes from int to dict in docker 3.0.0
-        error_msg = return_value.get("Error")
-        exit_code = return_value["StatusCode"]
-        msg = base_msg + "returned exit code %d with message %s" % (exit_code, error_msg)
-    else:
-        exit_code = return_value
-        msg = base_msg + "returned exit code %d" % (exit_code)
-
-    if exit_code not in [0, None]:
-        logger.error(container.logs().decode(), fg="red")
-        logger.error(msg)

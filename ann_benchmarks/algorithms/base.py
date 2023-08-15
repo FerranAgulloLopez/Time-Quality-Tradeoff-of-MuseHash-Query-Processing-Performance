@@ -1,4 +1,5 @@
 import multiprocessing
+import multiprocessing.pool
 import os
 
 import psutil
@@ -26,9 +27,9 @@ class BaseANN(object):
         return psutil.Process().memory_info().rss / 1024
 
     def fit(self, X):
-        self.pool.map(lambda _: self.fit_single(X), [0] * self.query_threads)
+        self.pool.map(lambda index: self.fit_single(index, X), list(range(self.query_threads)))
 
-    def fit_single(self, X):
+    def fit_single(self, index, X):
         raise NotImplementedError()
 
     def query(self, q, n):

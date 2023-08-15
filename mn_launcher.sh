@@ -9,6 +9,7 @@ temporary_launcher_path="./temporary_launcher_file"
 
 # helper function declaration
 function run_experiment {
+    echo "$1"
 
     # create output directory for the specific job
     mkdir -p $output_directory_path/$1
@@ -36,58 +37,58 @@ function run_experiment {
 }
 
 # test data parallelism
-list_number_workers=(2 4 8 16 32)
-for algorithm in "${algorithms[@]}"
-do
-    for dataset in "${datasets[@]}"
-    do
-        for number_workers in "${list_number_workers[@]}"
-        do 
-            for (( i=1; i<=$number_experiments; i++ ))
-            do
-                file_name="data_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
-                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} --batch \"[\\\"euclidean\\\", ${number_workers}, 1]\""
-
-                run_experiment $file_name "$launch_command"
-            done
-        done
-    done
-done
+#list_number_workers=(1 2 4 8 16 32)
+#for algorithm in "${algorithms[@]}"
+#do
+#    for dataset in "${datasets[@]}"
+#    do
+#        for number_workers in "${list_number_workers[@]}"
+#        do 
+#            for (( i=1; i<=$number_experiments; i++ ))
+#            do
+#                file_name="data_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
+#                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} --batch \"[\\\"euclidean\\\", ${number_workers}, 1]\""
+#
+#                run_experiment $file_name "$launch_command"
+#            done
+#        done
+#    done
+#done
 
 # test query parallelism
-list_number_workers=(2 4 8 16 32)
-for algorithm in "${algorithms[@]}"
-do
-    for dataset in "${datasets[@]}"
-    do
-        for number_workers in "${list_number_workers[@]}"
-        do 
-            for (( i=1; i<=$number_experiments; i++ ))
-            do
-                file_name="query_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
-                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} --batch \"[\\\"euclidean\\\", 1, ${number_workers}]\""
-
-                run_experiment $file_name "$launch_command"
-            done
-        done
-    done
-done
+#list_number_workers=(1 2 4 8 16 32)
+#for algorithm in "${algorithms[@]}"
+#do
+#    for dataset in "${datasets[@]}"
+#    do
+#        for number_workers in "${list_number_workers[@]}"
+#        do 
+#            for (( i=1; i<=$number_experiments; i++ ))
+#            do
+#                file_name="query_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
+#                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} --batch \"[\\\"euclidean\\\", 1, ${number_workers}]\""
+#
+#                run_experiment $file_name "$launch_command"
+#            done
+#        done
+#    done
+#done
 
 # test both parallelisms together
-list_number_workers=(2 4 8 16 32)
-for algorithm in "${algorithms[@]}"
-do
-    for dataset in "${datasets[@]}"
-    do
-        for number_workers in "${list_number_workers[@]}"
-        do 
-            for (( i=1; i<=$number_experiments; i++ ))
-            do
-                file_name="duo_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
-                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} --batch \"[\\\"euclidean\\\", ${number_workers}, ${number_workers}]\""
-
-                run_experiment $file_name "$launch_command"
-            done
-        done
-    done
-done
+#list_number_workers=(1 2 4 8 16 32)
+#for algorithm in "${algorithms[@]}"
+#do
+#    for dataset in "${datasets[@]}"
+#    do
+#        for number_workers in "${list_number_workers[@]}"
+#        do 
+#            for (( i=1; i<=$number_experiments; i++ ))
+#            do
+#                file_name="duo_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
+#                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} --batch \"[\\\"euclidean\\\", ${number_workers}, ${number_workers}]\""
+#
+#                run_experiment $file_name "$launch_command"
+#            done
+#        done
+#    done
+#done
