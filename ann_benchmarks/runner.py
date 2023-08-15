@@ -46,49 +46,37 @@ def run_individual_query(algo, X_train, X_test, distance, count, run_count, batc
         # a bit dumb but can't be a scalar since of Python's scoping rules
         n_items_processed = [0]
 
-        def single_query(v):
+        def single_query(X):
             if prepared_queries:
-                algo.prepare_query(v, count)
-                start = time.time()
-                algo.run_prepared_query()
-                total = time.time() - start
-                candidates = algo.get_prepared_query_results()
-            else:
-                start = time.time()
-                candidates = algo.query(v, count)
-                total = time.time() - start
-            candidates = [
-                (int(idx), float(metrics[distance]["distance"](v, X_train[idx]))) for idx in candidates  # noqa
-            ]
-            n_items_processed[0] += 1
-            if n_items_processed[0] % 1000 == 0:
-                print("Processed %d/%d queries..." % (n_items_processed[0], len(X_test)))
-            if len(candidates) > count:
-                print(
-                    "warning: algorithm %s returned %d results, but count"
-                    " is only %d)" % (algo, len(candidates), count)
-                )
-            return (total, candidates)
-
-        def batch_query(X):
-            if prepared_queries:
-                algo.prepare_batch_query(X, count)
-                start = time.time()
-                algo.run_batch_query()
-                total = time.time() - start
-                results = algo.get_batch_results()
+                raise NotImplementedError()
             else:
                 start = time.time()
 
                 # INFERENCE START
 
-                # without batch
-                results = pool.starmap(inference_par, [(X[index], count) for index in X.shape[0]])
+                results = pool.starmap(inference_par, [(X[index], count) for index in range(X.shape[0])])
 
-                # with batch
-                # query_processes = algo.get_query_processes()
-                # results = pool.starmap(inference_batch_par, [(split, count) for split in np.array_split(X, query_processes)])
-                # results = np.concatenate(results, axis=0)
+                # INFERENCE END
+
+                total = time.time() - start
+
+            candidates = [
+                [(int(idx), float(metrics[distance]["distance"](v, X_train[idx]))) for idx in single_results]  # noqa
+                for v, single_results in zip(X, results)
+            ]
+            return [(total / float(len(X)), v) for v in candidates]
+
+        def batch_query(X):
+            if prepared_queries:
+                raise NotImplementedError()
+            else:
+                start = time.time()
+
+                # INFERENCE START
+
+                query_processes = algo.get_query_processes()
+                results = pool.starmap(inference_batch_par, [(split, count) for split in np.array_split(X, query_processes)])
+                results = np.concatenate(results, axis=0)
 
                 # INFERENCE END
 
@@ -103,7 +91,7 @@ def run_individual_query(algo, X_train, X_test, distance, count, run_count, batc
         if batch:
             results = batch_query(X_test)
         else:
-            results = [single_query(x) for x in X_test]
+            results = single_query(X_test)
 
         total_time = sum(time for time, _ in results)
         total_candidates = sum(len(candidates) for _, candidates in results)
