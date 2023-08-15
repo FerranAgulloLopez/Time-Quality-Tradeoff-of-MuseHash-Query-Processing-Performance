@@ -1,6 +1,13 @@
 import argparse
 import json
 import time
+import multiprocessing
+import multiprocessing.pool
+from multiprocessing import freeze_support
+
+import numpy as np
+
+from ann_benchmarks.algorithms.bruteforce import bruteforce
 
 import numpy
 
@@ -9,8 +16,26 @@ from .datasets import DATASETS, get_dataset
 from .distance import dataset_transform, metrics
 from .results import store_results
 
+multiprocessing.set_start_method('fork', force=True)
 
-def run_individual_query(algo, X_train, X_test, distance, count, run_count, batch):
+
+def fit_par(definition, index, X):
+    global algo
+    algo = instantiate_algorithm(definition)
+    algo.fit(index, X)
+
+
+def inference_par(v, n):
+    global algo
+    return algo.query(v, n)
+
+
+def inference_batch_par(v, n):
+    global algo
+    return algo.query_batch(v, n)
+
+
+def run_individual_query(algo, X_train, X_test, distance, count, run_count, batch, pool):
     prepared_queries = (batch and hasattr(algo, "prepare_batch_query")) or (
         (not batch) and hasattr(algo, "prepare_query")
     )
@@ -51,11 +76,24 @@ def run_individual_query(algo, X_train, X_test, distance, count, run_count, batc
                 start = time.time()
                 algo.run_batch_query()
                 total = time.time() - start
+                results = algo.get_batch_results()
             else:
                 start = time.time()
-                algo.batch_query(X, count)
+
+                # INFERENCE START
+
+                # without batch
+                results = pool.starmap(inference_par, [(X[index], count) for index in X.shape[0]])
+
+                # with batch
+                # query_processes = algo.get_query_processes()
+                # results = pool.starmap(inference_batch_par, [(split, count) for split in np.array_split(X, query_processes)])
+                # results = np.concatenate(results, axis=0)
+
+                # INFERENCE END
+
                 total = time.time() - start
-            results = algo.get_batch_results()
+
             candidates = [
                 [(int(idx), float(metrics[distance]["distance"](v, X_train[idx]))) for idx in single_results]  # noqa
                 for v, single_results in zip(X, results)
@@ -112,17 +150,23 @@ function""" % (
 
     X_train, X_test = dataset_transform(D)
 
+    pool = None
     try:
         if hasattr(algo, "supports_prepared_queries"):
             algo.supports_prepared_queries()
 
         t0 = time.time()
-        memory_usage_before = algo.get_memory_usage()
-        algo.fit(X_train)
+
+        # FIT START
+
+        query_processes = algo.get_query_processes()
+        pool = multiprocessing.pool.Pool(processes=query_processes)
+        pool.starmap(fit_par, [(definition, index, X_train) for index in range(query_processes)])
+
+        # FIT END
+
         build_time = time.time() - t0
-        index_size = algo.get_memory_usage() - memory_usage_before
         print("Built index in", build_time)
-        print("Index size: ", index_size)
 
         query_argument_groups = definition.query_argument_groups
         # Make sure that algorithms with no query argument groups still get run
@@ -134,15 +178,16 @@ function""" % (
             print("Running query argument group %d of %d..." % (pos, len(query_argument_groups)))
             if query_arguments:
                 algo.set_query_arguments(*query_arguments)
-            descriptor, results = run_individual_query(algo, X_train, X_test, distance, count, run_count, batch)
+            descriptor, results = run_individual_query(algo, X_train, X_test, distance, count, run_count, batch, pool)
             print(f"Queries per second: {1.0 / descriptor['best_search_time']}")
             descriptor["build_time"] = build_time
-            descriptor["index_size"] = index_size
             descriptor["algo"] = definition.algorithm
             descriptor["dataset"] = dataset
             store_results(dataset, count, definition, query_arguments, descriptor, results, batch)
     finally:
         algo.done()
+        if pool is not None:
+            pool.close()
 
 
 def run_from_cmdline():

@@ -1,45 +1,28 @@
-import multiprocessing
-import multiprocessing.pool
 import os
-
-import psutil
-
-multiprocessing.set_start_method('fork')
 
 
 class BaseANN(object):
 
-    def __init__(self, query_threads=None):
-        self.query_threads = query_threads
-        if self.query_threads is None:
-            self.query_threads = os.cpu_count()
-        self.pool = multiprocessing.pool.ThreadPool(processes=self.query_threads)
-        print(f'Number of query threads: {self.query_threads}')
+    def __init__(self, query_processes=None):
+        self.query_processes = query_processes
+        if self.query_processes is None:
+            self.query_processes = os.cpu_count()
+        print(f'Number of query threads: {self.query_processes}')
 
     def done(self):
-        if self.pool is not None:
-            self.pool.close()
+        pass
 
-    def get_memory_usage(self):
-        """Return the current memory usage of this algorithm instance
-        (in kilobytes), or None if this information is not available."""
-        # return in kB for backwards compatibility
-        return psutil.Process().memory_info().rss / 1024
+    def get_query_processes(self):
+        return self.query_processes
 
-    def fit(self, X):
-        self.pool.map(lambda index: self.fit_single(index, X), list(range(self.query_threads)))
-
-    def fit_single(self, index, X):
+    def fit(self, index, X):
         raise NotImplementedError()
 
     def query(self, q, n):
-        return []  # array of candidate indices
+        raise NotImplementedError()
 
     def batch_query(self, X, n):
-        """Provide all queries at once and let algorithm figure out
-        how to handle it. Default implementation uses a ThreadPool
-        to parallelize query processing."""
-        self.res = self.pool.map(lambda q: self.query(q, n), X)
+        raise NotImplementedError()
 
     def get_batch_results(self):
         return self.res
