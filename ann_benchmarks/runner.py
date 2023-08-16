@@ -16,22 +16,23 @@ from .datasets import DATASETS, get_dataset
 from .distance import dataset_transform, metrics
 from .results import store_results
 
-multiprocessing.set_start_method('fork', force=True)
+multiprocessing.set_start_method('spawn', force=True)
 
 
-def fit_par(definition, index, X):
-    global algo
-    algo = instantiate_algorithm(definition)
-    algo.fit(index, X)
+def initialize_par(algo_init, n_init):
+    global algo, n
+    algo = algo_init
+    n = n_init
+    time.sleep(5)
 
 
-def inference_par(v, n):
-    global algo
+def inference_par(v):
+    global algo, n
     return algo.query(v, n)
 
 
-def inference_batch_par(v, n):
-    global algo
+def inference_batch_par(v):
+    global algo, n
     return algo.query_batch(v, n)
 
 
@@ -50,11 +51,17 @@ def run_individual_query(algo, X_train, X_test, distance, count, run_count, batc
             if prepared_queries:
                 raise NotImplementedError()
             else:
-                start = time.time()
 
                 # INFERENCE START
 
-                results = pool.starmap(inference_par, [(X[index], count) for index in range(X.shape[0])])
+                query_processes = algo.get_query_processes()
+                pool = multiprocessing.pool.Pool(processes=query_processes)
+                pool.starmap(initialize_par, [(algo, count)] * query_processes)
+
+                print('starts inference')
+                start = time.time()
+
+                results = pool.map(inference_par, [X[index] for index in range(X.shape[0])])
 
                 # INFERENCE END
 
@@ -70,12 +77,17 @@ def run_individual_query(algo, X_train, X_test, distance, count, run_count, batc
             if prepared_queries:
                 raise NotImplementedError()
             else:
-                start = time.time()
 
                 # INFERENCE START
 
                 query_processes = algo.get_query_processes()
-                results = pool.starmap(inference_batch_par, [(split, count) for split in np.array_split(X, query_processes)])
+                pool = multiprocessing.pool.Pool(processes=query_processes)
+                pool.starmap(initialize_par, [(algo, count)] * query_processes)
+
+                print('starts inference')
+                start = time.time()
+
+                results = pool.map(inference_batch_par, [split for split in np.array_split(X, query_processes)])
                 results = np.concatenate(results, axis=0)
 
                 # INFERENCE END
@@ -147,9 +159,10 @@ function""" % (
 
         # FIT START
 
-        query_processes = algo.get_query_processes()
-        pool = multiprocessing.pool.Pool(processes=query_processes)
-        pool.starmap(fit_par, [(definition, index, X_train) for index in range(query_processes)])
+        # query_processes = algo.get_query_processes()
+        # pool = multiprocessing.pool.Pool(processes=query_processes)
+        # pool.starmap(fit_par, [(definition, index, X_train) for index in range(query_processes)])
+        algo.fit(0, X_train)
 
         # FIT END
 
