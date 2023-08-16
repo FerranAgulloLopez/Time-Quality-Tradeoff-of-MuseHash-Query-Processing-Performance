@@ -9,7 +9,7 @@ The main change consists in the addition of two new datasets (vgg16-features and
 ### How to set up
 - Install python3.9
 - Install requirements.txt
-- Install cuml ([check official documentation](https://docs.rapids.ai/install#selector)) -> pip install cuml-cu11 --extra-index-url=https://pypi.nvidia.com 
+- Install cuml ([check official documentation](https://docs.rapids.ai/install#selector)) -> pip3 install cuml-cu11 --extra-index-url=https://pypi.nvidia.com 
 - Create a data directory and populate it like the following:
 ```
 - ./data/

@@ -1,6 +1,5 @@
 import numpy as np
 import sklearn.neighbors
-import multiprocessing
 
 from .base import BaseANN
 

@@ -1,5 +1,5 @@
 import os
-import cuml
+
 import numpy as np
 
 from .base import BaseANN
@@ -15,12 +15,11 @@ class bruteforcecuda(BaseANN):
         super().__init__(query_processes)
 
     def fit(self, index, X):
-        print(f'* index: {index}; position: 1; env var value: {os.environ["CUDA_VISIBLE_DEVICES"]} *')
-        #os.environ["CUDA_VISIBLE_DEVICES"] = str(index)
-        print(f'* index: {index}; position: 2; env var value: {os.environ["CUDA_VISIBLE_DEVICES"]} *')
+        #print(f'* index: {index}; position: 1; env var value: {os.environ["CUDA_VISIBLE_DEVICES"]} *')
+        os.environ["CUDA_VISIBLE_DEVICES"] = str(index)
+        import cuml  # to get new value for env var
         self.nbrs = cuml.neighbors.NearestNeighbors(metric=self.metric)
         self.nbrs.fit(X)
-        print(f'* index: {index}; position: 3; env var value: {os.environ["CUDA_VISIBLE_DEVICES"]} *')
 
     def query(self, v, n):
         return self.nbrs.kneighbors(np.expand_dims(v, axis=0), return_distance=False, n_neighbors=n)[0]
