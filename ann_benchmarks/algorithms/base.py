@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 
 class BaseANN(object):
@@ -21,11 +22,11 @@ class BaseANN(object):
     def query(self, q, n):
         raise NotImplementedError()
 
-    def batch_query(self, X, n):
-        raise NotImplementedError()
-
-    def get_batch_results(self):
-        return self.res
+    def query_batch(self, q, n):
+        output = np.zeros((q.shape[0], n), dtype=int)
+        for index in range(q.shape[0]):
+            output[index] = self.query(q[index], n)
+        return output
 
     def get_additional(self):
         return {}

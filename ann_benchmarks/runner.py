@@ -3,9 +3,10 @@ import json
 import multiprocessing
 import multiprocessing.pool
 import time
-
 import numpy
 import numpy as np
+import os
+import random
 
 from .algorithms.definitions import Definition, instantiate_algorithm
 from .datasets import DATASETS, get_dataset
@@ -15,10 +16,11 @@ from .results import store_results
 multiprocessing.set_start_method('spawn', force=True)
 
 
-def initialize_par(algo_init, n_init, index_init, X_init):
+def initialize_par(definition, n_init, index_init, X_path_init):
     global algo, n
-    algo = algo_init
+    algo = instantiate_algorithm(definition)
     n = n_init
+    X_init = np.load(X_path_init)
     algo.fit(index_init, X_init)
     time.sleep(5)
 
@@ -49,14 +51,9 @@ def run_individual_query(algo, X_train, X_test, distance, count, run_count, batc
                 raise NotImplementedError()
             else:
 
-                # INFERENCE START
-
-                #query_processes = algo.get_query_processes()
-                #pool = multiprocessing.pool.Pool(processes=query_processes)
-                #pool.starmap(initialize_par, [(algo, count)] * query_processes)
-
-                print('starts inference')
                 start = time.time()
+
+                # INFERENCE START
 
                 results = pool.map(inference_par, [X[index] for index in range(X.shape[0])])
 
@@ -75,14 +72,9 @@ def run_individual_query(algo, X_train, X_test, distance, count, run_count, batc
                 raise NotImplementedError()
             else:
 
-                # INFERENCE START
-
-                #query_processes = algo.get_query_processes()
-                #pool = multiprocessing.pool.Pool(processes=query_processes)
-                #pool.starmap(initialize_par, [(algo, count)] * query_processes)
-
-                print('starts inference')
                 start = time.time()
+
+                # INFERENCE START
 
                 query_processes = algo.get_query_processes()
                 results = pool.map(inference_batch_par, [split for split in np.array_split(X, query_processes)])
@@ -159,7 +151,10 @@ function""" % (
 
         query_processes = algo.get_query_processes()
         pool = multiprocessing.pool.Pool(processes=query_processes)
-        pool.starmap(initialize_par, [(algo, count, index, X_train) for index in range(query_processes)])
+        temporal_data_path = f'temporal_data_storage_{random.randint(0, 999999)}.npy'
+        np.save(temporal_data_path, X_train)
+        pool.starmap(initialize_par, [(definition, count, index, temporal_data_path) for index in range(query_processes)])
+        os.remove(temporal_data_path)
 
         # FIT END
 
