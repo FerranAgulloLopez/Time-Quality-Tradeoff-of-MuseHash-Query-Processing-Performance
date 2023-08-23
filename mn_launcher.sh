@@ -66,23 +66,23 @@ function run_experiment_gpu {
 }
 
 # test data parallelism
-list_number_workers=(1 2 4 8 16 32)
-for algorithm in "${algorithms[@]}"
-do
-    for dataset in "${datasets[@]}"
-    do
-        for number_workers in "${list_number_workers[@]}"
-        do 
-            for (( i=1; i<=$number_experiments; i++ ))
-            do
-                file_name="data_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
-                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} \"[\\\"euclidean\\\", ${number_workers}, 1]\""
-
-                run_experiment $file_name "$launch_command"
-            done
-        done
-    done
-done
+#list_number_workers=(1 2 4 8 16 32)
+#for algorithm in "${algorithms[@]}"
+#do
+#    for dataset in "${datasets[@]}"
+#    do
+#        for number_workers in "${list_number_workers[@]}"
+#        do 
+#            for (( i=1; i<=$number_experiments; i++ ))
+#            do
+#                file_name="data_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
+#                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} \"[\\\"euclidean\\\", ${number_workers}, 1]\""
+#
+#                run_experiment $file_name "$launch_command"
+#            done
+#        done
+#    done
+#done
 
 # test query parallelism
 #list_number_workers=(1 2 4 8 16 32)
@@ -141,3 +141,42 @@ done
 #        done
 #    done
 #done
+
+# TODO delete
+datasets=(fake-large-2048)
+list_number_workers=(16 32)
+for algorithm in "${algorithms[@]}"
+do
+    for dataset in "${datasets[@]}"
+    do
+        for number_workers in "${list_number_workers[@]}"
+        do 
+            for (( i=1; i<=$number_experiments; i++ ))
+            do
+                file_name="data_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
+                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} \"[\\\"euclidean\\\", ${number_workers}, 1]\""
+
+                run_experiment $file_name "$launch_command"
+            done
+        done
+    done
+done
+
+datasets=(muse-hash-visual-temporal-spatial-32-euclidean-au_air muse-hash-visual-temporal-spatial-128-euclidean-au_air muse-hash-visual-temporal-spatial-512-euclidean-au_air muse-hash-visual-temporal-spatial-2048-euclidean-au_air)
+list_number_workers=(1 2 4 8 16 32)
+for algorithm in "${algorithms[@]}"
+do
+    for dataset in "${datasets[@]}"
+    do
+        for number_workers in "${list_number_workers[@]}"
+        do 
+            for (( i=1; i<=$number_experiments; i++ ))
+            do
+                file_name="data_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
+                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} \"[\\\"euclidean\\\", ${number_workers}, 1]\""
+
+                run_experiment $file_name "$launch_command"
+            done
+        done
+    done
+done

@@ -1,0 +1,13 @@
+['euclidean', 1, 4]
+Trying to instantiate ann_benchmarks.algorithms.bruteforcecuda.bruteforcecuda(['euclidean', 1, 4])
+Number of query threads: 4
+got a train set of size (28000 * 2048)
+got 450 queries
+Trying to instantiate ann_benchmarks.algorithms.bruteforcecuda.bruteforcecuda(['euclidean', 1, 4])
+Number of query threads: 4
+Trying to instantiate ann_benchmarks.algorithms.bruteforcecuda.bruteforcecuda(['euclidean', 1, 4])
+Number of query threads: 4
+Built index in 10.373265027999878
+Running query argument group 1 of 1...
+Run 1/1...
+Queries per second: 60.309379743831045

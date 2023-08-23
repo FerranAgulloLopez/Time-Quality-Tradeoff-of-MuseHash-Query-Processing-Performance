@@ -1,0 +1,13 @@
+['euclidean', 2, 1]
+Trying to instantiate ann_benchmarks.algorithms.bruteforce.bruteforce(['euclidean', 2, 1])
+Number of workers: 2
+Number of query threads: 1
+got a train set of size (28000 * 512)
+got 450 queries
+Built index in 5.71680212020874
+Running query argument group 1 of 1...
+Run 1/1...
+Queries per second: 9.42720045331201
+Trying to instantiate ann_benchmarks.algorithms.bruteforce.bruteforce(['euclidean', 2, 1])
+Number of workers: 2
+Number of query threads: 1
