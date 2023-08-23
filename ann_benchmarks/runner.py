@@ -2,11 +2,12 @@ import argparse
 import json
 import multiprocessing
 import multiprocessing.pool
-import time
-import numpy
-import numpy as np
 import os
 import random
+import time
+
+import numpy
+import numpy as np
 
 from .algorithms.definitions import Definition, instantiate_algorithm
 from .datasets import DATASETS, get_dataset

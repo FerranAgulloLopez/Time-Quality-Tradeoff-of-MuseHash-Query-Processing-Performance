@@ -3,6 +3,7 @@ import sklearn.neighbors
 
 from .base import BaseANN
 
+
 # solve sklearn joblib issue with nested parallelism
 def _patch_joblib_loky_backend():
     import joblib._parallel_backends
