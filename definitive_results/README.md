@@ -1,7 +1,7 @@
 ### Definitive results
 This directory contain the definitive results to support the research contribution in the scalability of the MuseHash method.
 
-All experiments have been performed in the POWER-CTE cluster of MareNostrum VI (Barcelona Supercomputing Center). The hardware specification can be found in this public [guide](https://www.bsc.es/user-support/power.php). The results were run with the bash script named as *mn_launcher.sh* that is located in the root directory of this repository.
+All experiments have been performed in the POWER-CTE cluster of MareNostrum VI (Barcelona Supercomputing Center). The hardware specification can be found in this public [guide](https://www.bsc.es/user-support/power.php). The results were run with the bash script named as *mn_launcher.sh*.
 
 #### Folder structure
 The folder structure of the experiments follows the next pattern:
@@ -15,7 +15,7 @@ The folder structure of the experiments follows the next pattern:
 The definitive results contain the following types of experiments:
 - *data_parallelism*: checking the scalability of the bruteforce sklearn algorithm when adding more processes for doing the single query computation (via the variable named as *n_jobs*)
 - *query_parallelism*: checking the scalability of the bruteforce sklearn algorithm when adding more processes to handle the full set of input queries
-- *query_parallelism_cuda*: checking the scalability of the bruteforce cuml2 algorithm when adding more processes to handle the full set of input queries (using GPUs)
+- *query_parallelism_cuda*: checking the scalability of the bruteforce cuml algorithm when adding more processes to handle the full set of input queries (using GPUs)
 
 #### Available charts
 The definitive results contain the following list of charts:

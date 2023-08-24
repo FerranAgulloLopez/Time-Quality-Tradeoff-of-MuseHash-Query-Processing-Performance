@@ -85,6 +85,7 @@ function run_experiment_gpu {
 #done
 
 # test query parallelism
+#algorithms=(bruteforce)
 #list_number_workers=(1 2 4 8 16 32)
 #for algorithm in "${algorithms[@]}"
 #do
@@ -142,27 +143,51 @@ function run_experiment_gpu {
 #    done
 #done
 
-# TODO delete
-datasets=(fake-large-2048)
-list_number_workers=(16 32)
-for algorithm in "${algorithms[@]}"
-do
-    for dataset in "${datasets[@]}"
-    do
-        for number_workers in "${list_number_workers[@]}"
-        do 
-            for (( i=1; i<=$number_experiments; i++ ))
-            do
-                file_name="data_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
-                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} \"[\\\"euclidean\\\", ${number_workers}, 1]\""
 
-                run_experiment $file_name "$launch_command"
-            done
-        done
-    done
-done
+# test ball tree scalability
+#algorithms=(balltree)
+#datasets=(fake-large-1 fake-large-2 fake-large-4 fake-large-8 fake-large-16 fake-large-32)
+#list_number_workers=(1)
+#for algorithm in "${algorithms[@]}"
+#do
+#    for dataset in "${datasets[@]}"
+#    do
+#        for number_workers in "${list_number_workers[@]}"
+#        do 
+#            for (( i=1; i<=$number_experiments; i++ ))
+#            do
+#                file_name="query_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
+#                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} \"[\\\"euclidean\\\", 1, ${number_workers}, 100]\""
+#
+#                run_experiment $file_name "$launch_command"
+#            done
+#        done
+#    done
+#done
 
-datasets=(muse-hash-visual-temporal-spatial-32-euclidean-au_air muse-hash-visual-temporal-spatial-128-euclidean-au_air muse-hash-visual-temporal-spatial-512-euclidean-au_air muse-hash-visual-temporal-spatial-2048-euclidean-au_air)
+#algorithms=(bruteforce)
+#datasets=(fake-large-1 fake-large-2 fake-large-4 fake-large-8 fake-large-16)
+#list_number_workers=(1)
+#for algorithm in "${algorithms[@]}"
+#do
+#    for dataset in "${datasets[@]}"
+#    do
+#        for number_workers in "${list_number_workers[@]}"
+#        do 
+#            for (( i=1; i<=$number_experiments; i++ ))
+#            do
+#                file_name="query_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
+#                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} \"[\\\"euclidean\\\", 1, ${number_workers}]\""
+#
+#                run_experiment $file_name "$launch_command"
+#            done
+#        done
+#    done
+#done
+
+# test query parallelism pynndescent
+algorithms=(pynndescent)
+datasets=(fake-small-32 fake-small-128 fake-small-512 fake-small-2048 fake-medium-32 fake-medium-128 fake-medium-512 fake-medium-2048 fake-large-32 fake-large-128 fake-large-512 fake-large-2048 muse-hash-visual-temporal-spatial-32-euclidean-au_air muse-hash-visual-temporal-spatial-128-euclidean-au_air muse-hash-visual-temporal-spatial-512-euclidean-au_air muse-hash-visual-temporal-spatial-2048-euclidean-au_air)
 list_number_workers=(1 2 4 8 16 32)
 for algorithm in "${algorithms[@]}"
 do
@@ -172,10 +197,10 @@ do
         do 
             for (( i=1; i<=$number_experiments; i++ ))
             do
-                file_name="data_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
-                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} \"[\\\"euclidean\\\", ${number_workers}, 1]\""
+                file_name="query_parallelism_${algorithm}_${dataset}_${number_workers}_count_$i"
+                launch_command="python3 run_algorithm.py --dataset ${dataset} --runs 1 --count 10 --algorithm ${algorithm} --module ann_benchmarks.algorithms.${algorithm} --constructor ${algorithm} \"[\\\"euclidean\\\", 1, ${number_workers}]\""
 
-                run_experiment $file_name "$launch_command"
+                run_experiment_gpu $file_name "$launch_command"
             done
         done
     done
