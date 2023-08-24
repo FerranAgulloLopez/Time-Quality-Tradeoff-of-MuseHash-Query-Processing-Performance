@@ -99,12 +99,25 @@ Other combinations of values for the three datasets can be included modifying th
 ### How to run
 For running:
 ```
-python3 run_algorithm.py --dataset DATASET_NAME --runs RUNS --count NEIGHBOURS --algorithm ALGORITHM_NAME --module ann_benchmarks.algorithms.ALGORITHM_NAME --constructor ALGORITHM_NAME "[\"METRIC\", WORKERS_DATA_PARALLELISM, WORKERS_QUERY_PARALLELISM]" --batch
+python3 run_algorithm.py --dataset DATASET_NAME --runs RUNS --count NEIGHBOURS --algorithm ALGORITHM_NAME --module ann_benchmarks.algorithms.ALGORITHM_NAME --constructor ALGORITHM_NAME "[\"METRIC\", WORKERS_DATA_PARALLELISM, WORKERS_QUERY_PARALLELISM]"
 ```
-remember to populate the variables DATASET_NAME, ALGORITHM_NAME, NEIGHBOURS, RUNS, METRIC, WORKERS_QUERY_PARALLELISM and WORKERS_DATA_PARALLELISM, like the following:
+remember to populate the variables:
+- DATASET_NAME (possible values: all datasets that have been created previously)
+- ALGORITHM_NAME (possible values: *bruteforce*, *bruteforcecuda*, *balltree* and *pynndescent*)
+- NEIGHBOURS (possible values: all integers greater than 0)
+- RUNS (possible values: all integers greater than 0)
+- METRIC (possible values: depends on the algorithm)
+- WORKERS_QUERY_PARALLELISM (possible values: all integers greater than 0, if -1 all available cores are used)
+- WORKERS_DATA_PARALLELISM (possible values: all integers greater than 0, if -1 all available cores are used)
+
+An example of a filled run command could be the following:
 ```
-python3 run_algorithm.py --dataset fake-small-32 --runs 1 --count 10 --algorithm bruteforce --module ann_benchmarks.algorithms.bruteforce --constructor bruteforce "[\"euclidean\", 1, 1]" --batch
+python3 run_algorithm.py --dataset fake-small-32 --runs 1 --count 10 --algorithm bruteforce --module ann_benchmarks.algorithms.bruteforce --constructor bruteforce "[\"euclidean\", 1, 1]"
 ```
+
+At the end of the array *"[\"euclidean\", 1, 1]"* other parameters can be included to populate other parameters exclusive of each algorithm. Check the implementation of the algorithms in the directory *ann_benchmarks/algorithms* for more information with regard to the additional parameters.
+
+Lastly, it is possible to add the pragma *--batch* at the end of the call to send all queries to the algorithm at the same time. Notice that not all algorithms implement this functionality.
 
 For running all the scalability experiments needed for the paper, check the file `definitive_results/mn_launcher.sh`. It contains the run commands to launch all experiments in one of the MareNostrum clusters. The last can be updated to work in other platforms. Check the directory *definitive_results* for more information.
 
