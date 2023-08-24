@@ -4,6 +4,9 @@ _This adaptation was created as a result of the research publication ..._
 ### Introduction
 This repository contains an adaptation of the code from [ANN Benchmark](http://github.com/erikbern/ann-benchmarks/). The modifications are meant to perform scalability experiments with the MuseHash method.
 
+Relate to this publication for more information in regards to the original implementation:
+- M. Aumüller, E. Bernhardsson, A. Faithfull: [ANN-Benchmarks: A Benchmarking Tool for Approximate Nearest Neighbor Algorithms](https://arxiv.org/abs/1807.05614). Information Systems 2019. DOI: [10.1016/j.is.2019.02.006](https://doi.org/10.1016/j.is.2019.02.006)
+
 The main changes to the code are the following:
 - the addition of two new datasets (vgg16-features and muse-hash) for the [AU-AIR](https://bozcani.github.io/auairdataset) and [LSC'23](http://lifelogsearch.org/lsc/) public datasets
 - the addition of random synthetic datasets of arbitrary size (fake-*)
@@ -132,3 +135,9 @@ python3 plot.py --dataset vgg16-features --count 10 --recompute -x muse-hash-rec
 ```
 
 Take into account that this feature is not used in the scalability experiments. It is maintained for backward compatibility with the original implementation and for assuring the good functioning of the code with the computation of the precision and recall metrics. Check the *definitive_results* directory for the information of the plots / charts produced for the scalability experiments.
+
+### Authors
+...
+
+### Related publication
+...
