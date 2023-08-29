@@ -1,0 +1,77 @@
+['euclidean', 1, 4]
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 4])
+Number of query threads: 4
+got a train set of size (7000 * 32)
+got 450 queries
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 4])
+Number of query threads: 4
+Mon Aug 28 01:59:33 2023 Building RP forest with 14 trees
+Mon Aug 28 01:59:37 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	Stopping threshold met -- exiting after 3 iterations
+Mon Aug 28 02:01:30 2023 Worst tree score: 0.52471429
+Mon Aug 28 02:01:30 2023 Mean tree score: 0.63839796
+Mon Aug 28 02:01:30 2023 Best tree score: 0.82657143
+Mon Aug 28 02:01:33 2023 Forward diversification reduced edges from 70000 to 50134
+Mon Aug 28 02:01:36 2023 Reverse diversification reduced edges from 50134 to 50134
+Mon Aug 28 02:01:39 2023 Degree pruning reduced edges from 58248 to 58176
+Mon Aug 28 02:01:39 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:01:39 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:01:39 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 4])
+Number of query threads: 4
+Mon Aug 28 01:59:33 2023 Building RP forest with 14 trees
+Mon Aug 28 01:59:37 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	Stopping threshold met -- exiting after 3 iterations
+Mon Aug 28 02:01:27 2023 Worst tree score: 0.51500000
+Mon Aug 28 02:01:27 2023 Mean tree score: 0.62919388
+Mon Aug 28 02:01:27 2023 Best tree score: 0.83385714
+Mon Aug 28 02:01:31 2023 Forward diversification reduced edges from 70000 to 50058
+Mon Aug 28 02:01:34 2023 Reverse diversification reduced edges from 50058 to 50058
+Mon Aug 28 02:01:37 2023 Degree pruning reduced edges from 58080 to 58002
+Mon Aug 28 02:01:37 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:01:37 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:01:37 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 4])
+Number of query threads: 4
+Mon Aug 28 01:59:33 2023 Building RP forest with 14 trees
+Mon Aug 28 01:59:37 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	Stopping threshold met -- exiting after 3 iterations
+Mon Aug 28 02:01:27 2023 Worst tree score: 0.53857143
+Mon Aug 28 02:01:27 2023 Mean tree score: 0.64565306
+Mon Aug 28 02:01:27 2023 Best tree score: 0.83057143
+Mon Aug 28 02:01:31 2023 Forward diversification reduced edges from 70000 to 49908
+Mon Aug 28 02:01:34 2023 Reverse diversification reduced edges from 49908 to 49908
+Mon Aug 28 02:01:37 2023 Degree pruning reduced edges from 57930 to 57813
+Mon Aug 28 02:01:37 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:01:37 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:01:37 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 4])
+Number of query threads: 4
+Mon Aug 28 01:59:33 2023 Building RP forest with 14 trees
+Mon Aug 28 01:59:37 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	Stopping threshold met -- exiting after 3 iterations
+Mon Aug 28 02:01:27 2023 Worst tree score: 0.58057143
+Mon Aug 28 02:01:27 2023 Mean tree score: 0.66280612
+Mon Aug 28 02:01:27 2023 Best tree score: 0.78928571
+Mon Aug 28 02:01:32 2023 Forward diversification reduced edges from 70000 to 50139
+Mon Aug 28 02:01:35 2023 Reverse diversification reduced edges from 50139 to 50139
+Mon Aug 28 02:01:38 2023 Degree pruning reduced edges from 58246 to 58174
+Mon Aug 28 02:01:38 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:01:38 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:01:38 2023 Building and compiling search function
+Built index in 137.84438562393188
+Running query argument group 1 of 1...
+Run 1/1...
+Queries per second: 48121.89077558487

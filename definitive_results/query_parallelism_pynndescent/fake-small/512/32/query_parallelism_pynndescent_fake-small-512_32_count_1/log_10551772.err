@@ -1,0 +1,69 @@
+unload bsc/commands (PATH, MANPATH) 
+unload CUDA/9.1 (PATH, MANPATH, LD_LIBRARY_PATH, LIBRARY_PATH, C_INCLUDE_PATH,
+CPLUS_INCLUDE_PATH, CUDA_HOME, CUDA_VERSION, CUDA_INC, CUDA_INSTALL_PATH) 
+unload OPENMPI/3.0.0 (PATH, MANPATH, LD_LIBRARY_PATH, LIBRARY_PATH,
+PKG_CONFIG_PATH, C_INCLUDE_PATH, CPLUS_INCLUDE_PATH, MPI, MPI_V) 
+unload GCC/6.4.0 (PATH, MANPATH, INFOPATH, LD_LIBRARY_PATH, LIBRARY_PATH,
+C_INCLUDE_PATH, CPLUS_INCLUDE_PATH, STD COMP VARS) 
+load CUDA/10.2 (PATH, MANPATH, LD_LIBRARY_PATH, LIBRARY_PATH, C_INCLUDE_PATH,
+CPLUS_INCLUDE_PATH, CUDA_HOME, CUDA_VERSION, CUDA_INC, CUDA_INSTALL_PATH) 
+load ANACONDA3/2020.02 (PATH, MANPATH, LD_LIBRARY_PATH, LIBRARY_PATH,
+PKG_CONFIG_PATH, C_INCLUDE_PATH, CPLUS_INCLUDE_PATH, PYTHONHOME, PYTHONPATH) 
+load OPENMPI/3.0.0 (PATH, MANPATH, LD_LIBRARY_PATH, LIBRARY_PATH,
+PKG_CONFIG_PATH, C_INCLUDE_PATH, CPLUS_INCLUDE_PATH, MPI, MPI_V) 
+load GCC/8.3.0 (PATH, MANPATH, INFOPATH, LIBRARY_PATH, LD_LIBRARY_PATH, STD
+COMP VARS) 
+load BOOST/1.69.0 (LD_LIBRARY_PATH, LIBRARY_PATH, C_INCLUDE_PATH,
+CPLUS_INCLUDE_PATH, BOOST_ROOT) 
+load CUDNN/7.6.4 (LD_LIBRARY_PATH, LIBRARY_PATH, C_INCLUDE_PATH,
+CPLUS_INCLUDE_PATH, CUDNN_LIB_DIR, CUDNN_LIBRARY, CUDNN_INCLUDE_DIR) 
+load NCCL/2.9.9 (LD_LIBRARY_PATH, LIBRARY_PATH, C_INCLUDE_PATH,
+CPLUS_INCLUDE_PATH) 
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+OMP: Info #276: omp_set_nested routine deprecated, please use omp_set_max_active_levels instead.
+/apps/ANACONDA3/2020.02/envs/cuml2/lib/python3.9/site-packages/scipy/sparse/_index.py:146: SparseEfficiencyWarning: Changing the sparsity structure of a csr_matrix is expensive. lil_matrix is more efficient.
+  self._set_arrayXarray(i, j, x)
+/apps/ANACONDA3/2020.02/envs/cuml2/lib/python3.9/site-packages/scipy/sparse/_index.py:146: SparseEfficiencyWarning: Changing the sparsity structure of a csr_matrix is expensive. lil_matrix is more efficient.
+  self._set_arrayXarray(i, j, x)
+/apps/ANACONDA3/2020.02/envs/cuml2/lib/python3.9/site-packages/scipy/sparse/_index.py:146: SparseEfficiencyWarning: Changing the sparsity structure of a csr_matrix is expensive. lil_matrix is more efficient.
+  self._set_arrayXarray(i, j, x)
+/apps/ANACONDA3/2020.02/envs/cuml2/lib/python3.9/site-packages/scipy/sparse/_index.py:146: SparseEfficiencyWarning: Changing the sparsity structure of a csr_matrix is expensive. lil_matrix is more efficient.
+  self._set_arrayXarray(i, j, x)
+/apps/ANACONDA3/2020.02/envs/cuml2/lib/python3.9/site-packages/scipy/sparse/_index.py:146: SparseEfficiencyWarning: Changing the sparsity structure of a csr_matrix is expensive. lil_matrix is more efficient.
+  self._set_arrayXarray(i, j, x)
+/apps/ANACONDA3/2020.02/envs/cuml2/lib/python3.9/site-packages/scipy/sparse/_index.py:146: SparseEfficiencyWarning: Changing the sparsity structure of a csr_matrix is expensive. lil_matrix is more efficient.
+  self._set_arrayXarray(i, j, x)
+/apps/ANACONDA3/2020.02/envs/cuml2/lib/python3.9/site-packages/scipy/sparse/_index.py:146: SparseEfficiencyWarning: Changing the sparsity structure of a csr_matrix is expensive. lil_matrix is more efficient.
+  self._set_arrayXarray(i, j, x)
+/apps/ANACONDA3/2020.02/envs/cuml2/lib/python3.9/site-packages/scipy/sparse/_index.py:146: SparseEfficiencyWarning: Changing the sparsity structure of a csr_matrix is expensive. lil_matrix is more efficient.
+  self._set_arrayXarray(i, j, x)

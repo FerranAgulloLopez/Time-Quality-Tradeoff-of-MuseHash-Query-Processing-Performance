@@ -18,7 +18,8 @@ def __read_results(path: str):
             file_data = file.read()
         qps = re.findall('Queries per second: (.*)\n', file_data)
         if len(qps) != 1:
-            raise Exception(f'Unable to correctly extract results from output file {output_file}')
+            print(f'Unable to correctly extract results from output file {output_file}')
+            qps = [0]
         qps = float(qps[0])
         qps_list.append(qps)
 
@@ -104,4 +105,10 @@ if __name__ == '__main__':
         ['fake-large'],
         ['1', '2', '4', '8', '16', '32'],
         ['1']
+    ),
+    extract_results(
+        'query_parallelism_pynndescent',
+        ['fake-large', 'fake-medium', 'fake-small', 'muse-hash-visual-temporal-spatial-euclidean-au_air'],
+        ['32', '128', '512', '2048'],
+        ['1', '2', '4', '8', '16', '32']
     )

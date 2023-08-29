@@ -1,0 +1,9 @@
+['euclidean', 1, 1]
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 1])
+Number of query threads: 1
+got a train set of size (448000 * 128)
+got 450 queries
+Built index in 233.61569905281067
+Running query argument group 1 of 1...
+Run 1/1...
+Queries per second: 4062.5072374241086

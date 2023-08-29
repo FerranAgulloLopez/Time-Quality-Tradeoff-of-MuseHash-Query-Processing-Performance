@@ -86,4 +86,8 @@ if __name__ == '__main__':
     generate_charts(
         'data_parallelism',
         ['fake-large', 'fake-medium', 'fake-small', 'muse-hash-visual-temporal-spatial-euclidean-au_air']
+    ),
+    generate_charts(
+        'query_parallelism_pynndescent',
+        ['fake-large', 'fake-medium', 'fake-small', 'muse-hash-visual-temporal-spatial-euclidean-au_air']
     )

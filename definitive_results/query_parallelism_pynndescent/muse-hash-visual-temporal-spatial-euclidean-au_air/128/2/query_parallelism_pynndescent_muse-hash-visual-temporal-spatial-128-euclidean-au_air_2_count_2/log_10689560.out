@@ -1,0 +1,47 @@
+['euclidean', 1, 2]
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 2])
+Number of query threads: 2
+got a train set of size (7000 * 128)
+got 450 queries
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 2])
+Number of query threads: 2
+Mon Aug 28 02:07:51 2023 Building RP forest with 14 trees
+Mon Aug 28 02:07:55 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	 4  /  13
+	 5  /  13
+	Stopping threshold met -- exiting after 5 iterations
+Mon Aug 28 02:09:43 2023 Worst tree score: 0.46442857
+Mon Aug 28 02:09:43 2023 Mean tree score: 0.48955102
+Mon Aug 28 02:09:43 2023 Best tree score: 0.51428571
+Mon Aug 28 02:09:47 2023 Forward diversification reduced edges from 70000 to 43659
+Mon Aug 28 02:09:50 2023 Reverse diversification reduced edges from 43659 to 43659
+Mon Aug 28 02:09:52 2023 Degree pruning reduced edges from 51824 to 51231
+Mon Aug 28 02:09:52 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:09:52 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:09:52 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 2])
+Number of query threads: 2
+Mon Aug 28 02:07:51 2023 Building RP forest with 14 trees
+Mon Aug 28 02:07:55 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	 4  /  13
+	 5  /  13
+	Stopping threshold met -- exiting after 5 iterations
+Mon Aug 28 02:09:43 2023 Worst tree score: 0.45771429
+Mon Aug 28 02:09:43 2023 Mean tree score: 0.49439796
+Mon Aug 28 02:09:43 2023 Best tree score: 0.52885714
+Mon Aug 28 02:09:46 2023 Forward diversification reduced edges from 70000 to 43773
+Mon Aug 28 02:09:50 2023 Reverse diversification reduced edges from 43773 to 43773
+Mon Aug 28 02:09:52 2023 Degree pruning reduced edges from 52006 to 51416
+Mon Aug 28 02:09:52 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:09:52 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:09:52 2023 Building and compiling search function
+Built index in 133.59698748588562
+Running query argument group 1 of 1...
+Run 1/1...
+Queries per second: 27534.125953697432

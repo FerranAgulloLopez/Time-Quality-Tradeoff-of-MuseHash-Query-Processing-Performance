@@ -1,0 +1,911 @@
+['euclidean', 1, 32]
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+got a train set of size (112000 * 2048)
+got 450 queries
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:56 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:46 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:38 2023 Worst tree score: 0.15325893
+Fri Aug 25 09:43:38 2023 Mean tree score: 0.15490644
+Fri Aug 25 09:43:38 2023 Best tree score: 0.15650000
+Fri Aug 25 09:43:45 2023 Forward diversification reduced edges from 1120000 to 730253
+Fri Aug 25 09:43:51 2023 Reverse diversification reduced edges from 730253 to 730253
+Fri Aug 25 09:43:55 2023 Degree pruning reduced edges from 1046436 to 821976
+Fri Aug 25 09:43:55 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:55 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:55 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:55 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:36 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:42:28 2023 Worst tree score: 0.15275000
+Fri Aug 25 09:42:28 2023 Mean tree score: 0.15450854
+Fri Aug 25 09:42:28 2023 Best tree score: 0.15808929
+Fri Aug 25 09:43:13 2023 Forward diversification reduced edges from 1120000 to 730253
+Fri Aug 25 09:43:29 2023 Reverse diversification reduced edges from 730253 to 730253
+Fri Aug 25 09:43:36 2023 Degree pruning reduced edges from 1047134 to 821975
+Fri Aug 25 09:43:36 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:36 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:36 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:54 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:29 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:14 2023 Worst tree score: 0.15236607
+Fri Aug 25 09:43:14 2023 Mean tree score: 0.15485443
+Fri Aug 25 09:43:14 2023 Best tree score: 0.15773214
+Fri Aug 25 09:43:34 2023 Forward diversification reduced edges from 1120000 to 730717
+Fri Aug 25 09:43:40 2023 Reverse diversification reduced edges from 730717 to 730717
+Fri Aug 25 09:43:45 2023 Degree pruning reduced edges from 1047316 to 822364
+Fri Aug 25 09:43:45 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:46 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:46 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:55 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:26 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:40 2023 Worst tree score: 0.15225893
+Fri Aug 25 09:43:40 2023 Mean tree score: 0.15416925
+Fri Aug 25 09:43:40 2023 Best tree score: 0.15600893
+Fri Aug 25 09:43:47 2023 Forward diversification reduced edges from 1120000 to 729909
+Fri Aug 25 09:43:53 2023 Reverse diversification reduced edges from 729909 to 729909
+Fri Aug 25 09:43:57 2023 Degree pruning reduced edges from 1045692 to 821541
+Fri Aug 25 09:43:57 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:57 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:57 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:55 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:38 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	 15  /  17
+	Stopping threshold met -- exiting after 15 iterations
+Fri Aug 25 09:42:20 2023 Worst tree score: 0.15225893
+Fri Aug 25 09:42:20 2023 Mean tree score: 0.15440994
+Fri Aug 25 09:42:20 2023 Best tree score: 0.15646429
+Fri Aug 25 09:43:04 2023 Forward diversification reduced edges from 1120000 to 729905
+Fri Aug 25 09:43:21 2023 Reverse diversification reduced edges from 729905 to 729905
+Fri Aug 25 09:43:34 2023 Degree pruning reduced edges from 1046566 to 821001
+Fri Aug 25 09:43:34 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:34 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:34 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:57 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:04 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:38 2023 Worst tree score: 0.15118750
+Fri Aug 25 09:43:38 2023 Mean tree score: 0.15437772
+Fri Aug 25 09:43:38 2023 Best tree score: 0.15650000
+Fri Aug 25 09:43:45 2023 Forward diversification reduced edges from 1120000 to 729382
+Fri Aug 25 09:43:51 2023 Reverse diversification reduced edges from 729382 to 729382
+Fri Aug 25 09:43:55 2023 Degree pruning reduced edges from 1045222 to 820868
+Fri Aug 25 09:43:55 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:55 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:55 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:56 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:57 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:25 2023 Worst tree score: 0.15291071
+Fri Aug 25 09:43:25 2023 Mean tree score: 0.15469332
+Fri Aug 25 09:43:25 2023 Best tree score: 0.15579464
+Fri Aug 25 09:43:36 2023 Forward diversification reduced edges from 1120000 to 730779
+Fri Aug 25 09:43:44 2023 Reverse diversification reduced edges from 730779 to 730779
+Fri Aug 25 09:43:49 2023 Degree pruning reduced edges from 1047850 to 823238
+Fri Aug 25 09:43:49 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:49 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:49 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:55 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:12 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:41:27 2023 Worst tree score: 0.15237500
+Fri Aug 25 09:41:27 2023 Mean tree score: 0.15497244
+Fri Aug 25 09:41:27 2023 Best tree score: 0.15733929
+Fri Aug 25 09:42:22 2023 Forward diversification reduced edges from 1120000 to 730695
+Fri Aug 25 09:43:09 2023 Reverse diversification reduced edges from 730695 to 730695
+Fri Aug 25 09:43:22 2023 Degree pruning reduced edges from 1047546 to 822608
+Fri Aug 25 09:43:22 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:24 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:24 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:57 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:02 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:25 2023 Worst tree score: 0.15187500
+Fri Aug 25 09:43:25 2023 Mean tree score: 0.15467081
+Fri Aug 25 09:43:25 2023 Best tree score: 0.15639286
+Fri Aug 25 09:43:37 2023 Forward diversification reduced edges from 1120000 to 731075
+Fri Aug 25 09:43:43 2023 Reverse diversification reduced edges from 731075 to 731075
+Fri Aug 25 09:43:48 2023 Degree pruning reduced edges from 1047546 to 822930
+Fri Aug 25 09:43:48 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:49 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:49 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:54 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:02 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:42:11 2023 Worst tree score: 0.15191964
+Fri Aug 25 09:42:11 2023 Mean tree score: 0.15419061
+Fri Aug 25 09:42:11 2023 Best tree score: 0.15754464
+Fri Aug 25 09:42:58 2023 Forward diversification reduced edges from 1120000 to 730308
+Fri Aug 25 09:43:21 2023 Reverse diversification reduced edges from 730308 to 730308
+Fri Aug 25 09:43:31 2023 Degree pruning reduced edges from 1046762 to 822233
+Fri Aug 25 09:43:31 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:32 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:32 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:57 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:03 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:39 2023 Worst tree score: 0.15248214
+Fri Aug 25 09:43:39 2023 Mean tree score: 0.15460831
+Fri Aug 25 09:43:39 2023 Best tree score: 0.15708036
+Fri Aug 25 09:43:46 2023 Forward diversification reduced edges from 1120000 to 730868
+Fri Aug 25 09:43:51 2023 Reverse diversification reduced edges from 730868 to 730868
+Fri Aug 25 09:43:55 2023 Degree pruning reduced edges from 1047218 to 823205
+Fri Aug 25 09:43:55 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:55 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:55 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:57 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:01 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:45 2023 Worst tree score: 0.15201786
+Fri Aug 25 09:43:45 2023 Mean tree score: 0.15453804
+Fri Aug 25 09:43:45 2023 Best tree score: 0.15656250
+Fri Aug 25 09:43:52 2023 Forward diversification reduced edges from 1120000 to 730399
+Fri Aug 25 09:43:56 2023 Reverse diversification reduced edges from 730399 to 730399
+Fri Aug 25 09:43:59 2023 Degree pruning reduced edges from 1046206 to 821718
+Fri Aug 25 09:43:59 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:59 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:59 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:55 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:43 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:28 2023 Worst tree score: 0.15214286
+Fri Aug 25 09:43:28 2023 Mean tree score: 0.15447865
+Fri Aug 25 09:43:28 2023 Best tree score: 0.15639286
+Fri Aug 25 09:43:38 2023 Forward diversification reduced edges from 1120000 to 730464
+Fri Aug 25 09:43:43 2023 Reverse diversification reduced edges from 730464 to 730464
+Fri Aug 25 09:43:49 2023 Degree pruning reduced edges from 1046882 to 822181
+Fri Aug 25 09:43:49 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:50 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:50 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:54 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:33 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	 15  /  17
+	Stopping threshold met -- exiting after 15 iterations
+Fri Aug 25 09:43:34 2023 Worst tree score: 0.15225893
+Fri Aug 25 09:43:34 2023 Mean tree score: 0.15484589
+Fri Aug 25 09:43:34 2023 Best tree score: 0.15754464
+Fri Aug 25 09:43:41 2023 Forward diversification reduced edges from 1120000 to 731259
+Fri Aug 25 09:43:48 2023 Reverse diversification reduced edges from 731259 to 731259
+Fri Aug 25 09:43:52 2023 Degree pruning reduced edges from 1048550 to 823717
+Fri Aug 25 09:43:52 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:52 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:52 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:58 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:04 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:23 2023 Worst tree score: 0.15186607
+Fri Aug 25 09:43:23 2023 Mean tree score: 0.15463820
+Fri Aug 25 09:43:23 2023 Best tree score: 0.15736607
+Fri Aug 25 09:43:37 2023 Forward diversification reduced edges from 1120000 to 729946
+Fri Aug 25 09:43:43 2023 Reverse diversification reduced edges from 729946 to 729946
+Fri Aug 25 09:43:49 2023 Degree pruning reduced edges from 1045794 to 821029
+Fri Aug 25 09:43:49 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:50 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:50 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:58 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:05 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:41:23 2023 Worst tree score: 0.15263393
+Fri Aug 25 09:41:23 2023 Mean tree score: 0.15495769
+Fri Aug 25 09:41:23 2023 Best tree score: 0.15719643
+Fri Aug 25 09:42:26 2023 Forward diversification reduced edges from 1120000 to 730835
+Fri Aug 25 09:43:09 2023 Reverse diversification reduced edges from 730835 to 730835
+Fri Aug 25 09:43:25 2023 Degree pruning reduced edges from 1048192 to 823034
+Fri Aug 25 09:43:25 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:26 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:26 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:56 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:02 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:37 2023 Worst tree score: 0.15243750
+Fri Aug 25 09:43:38 2023 Mean tree score: 0.15485870
+Fri Aug 25 09:43:38 2023 Best tree score: 0.15638393
+Fri Aug 25 09:43:46 2023 Forward diversification reduced edges from 1120000 to 731039
+Fri Aug 25 09:43:52 2023 Reverse diversification reduced edges from 731039 to 731039
+Fri Aug 25 09:43:55 2023 Degree pruning reduced edges from 1047500 to 822969
+Fri Aug 25 09:43:55 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:56 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:56 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:55 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:56 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:42:47 2023 Worst tree score: 0.15273214
+Fri Aug 25 09:42:47 2023 Mean tree score: 0.15497321
+Fri Aug 25 09:42:47 2023 Best tree score: 0.15810714
+Fri Aug 25 09:43:15 2023 Forward diversification reduced edges from 1120000 to 730535
+Fri Aug 25 09:43:32 2023 Reverse diversification reduced edges from 730535 to 730535
+Fri Aug 25 09:43:37 2023 Degree pruning reduced edges from 1046082 to 822550
+Fri Aug 25 09:43:37 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:38 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:38 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:58 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:03 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:40 2023 Worst tree score: 0.15299107
+Fri Aug 25 09:43:40 2023 Mean tree score: 0.15516149
+Fri Aug 25 09:43:40 2023 Best tree score: 0.15722321
+Fri Aug 25 09:43:47 2023 Forward diversification reduced edges from 1120000 to 731630
+Fri Aug 25 09:43:53 2023 Reverse diversification reduced edges from 731630 to 731630
+Fri Aug 25 09:43:56 2023 Degree pruning reduced edges from 1048108 to 823691
+Fri Aug 25 09:43:56 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:57 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:57 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:57 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:04 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:33 2023 Worst tree score: 0.15244643
+Fri Aug 25 09:43:33 2023 Mean tree score: 0.15509200
+Fri Aug 25 09:43:33 2023 Best tree score: 0.15746429
+Fri Aug 25 09:43:40 2023 Forward diversification reduced edges from 1120000 to 731186
+Fri Aug 25 09:43:47 2023 Reverse diversification reduced edges from 731186 to 731186
+Fri Aug 25 09:43:52 2023 Degree pruning reduced edges from 1047978 to 823342
+Fri Aug 25 09:43:52 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:52 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:52 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:58 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:04 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	 15  /  17
+	Stopping threshold met -- exiting after 15 iterations
+Fri Aug 25 09:43:10 2023 Worst tree score: 0.15190179
+Fri Aug 25 09:43:10 2023 Mean tree score: 0.15471739
+Fri Aug 25 09:43:10 2023 Best tree score: 0.15779464
+Fri Aug 25 09:43:29 2023 Forward diversification reduced edges from 1120000 to 730327
+Fri Aug 25 09:43:37 2023 Reverse diversification reduced edges from 730327 to 730327
+Fri Aug 25 09:43:42 2023 Degree pruning reduced edges from 1046100 to 822504
+Fri Aug 25 09:43:42 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:42 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:42 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:54 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:19 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:08 2023 Worst tree score: 0.15250000
+Fri Aug 25 09:43:08 2023 Mean tree score: 0.15467275
+Fri Aug 25 09:43:08 2023 Best tree score: 0.15744643
+Fri Aug 25 09:43:30 2023 Forward diversification reduced edges from 1120000 to 729754
+Fri Aug 25 09:43:38 2023 Reverse diversification reduced edges from 729754 to 729754
+Fri Aug 25 09:43:42 2023 Degree pruning reduced edges from 1046194 to 821531
+Fri Aug 25 09:43:42 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:43 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:43 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:56 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:49 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:29 2023 Worst tree score: 0.15227679
+Fri Aug 25 09:43:29 2023 Mean tree score: 0.15455085
+Fri Aug 25 09:43:29 2023 Best tree score: 0.15720536
+Fri Aug 25 09:43:39 2023 Forward diversification reduced edges from 1120000 to 731346
+Fri Aug 25 09:43:46 2023 Reverse diversification reduced edges from 731346 to 731346
+Fri Aug 25 09:43:50 2023 Degree pruning reduced edges from 1047968 to 823018
+Fri Aug 25 09:43:50 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:51 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:51 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:55 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:01 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	 15  /  17
+	Stopping threshold met -- exiting after 15 iterations
+Fri Aug 25 09:43:34 2023 Worst tree score: 0.15293750
+Fri Aug 25 09:43:34 2023 Mean tree score: 0.15467508
+Fri Aug 25 09:43:34 2023 Best tree score: 0.15628571
+Fri Aug 25 09:43:41 2023 Forward diversification reduced edges from 1120000 to 730095
+Fri Aug 25 09:43:48 2023 Reverse diversification reduced edges from 730095 to 730095
+Fri Aug 25 09:43:51 2023 Degree pruning reduced edges from 1046886 to 821785
+Fri Aug 25 09:43:51 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:52 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:52 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:55 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:22 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	 15  /  17
+	Stopping threshold met -- exiting after 15 iterations
+Fri Aug 25 09:41:10 2023 Worst tree score: 0.15233036
+Fri Aug 25 09:41:10 2023 Mean tree score: 0.15428843
+Fri Aug 25 09:41:10 2023 Best tree score: 0.15650893
+Fri Aug 25 09:41:52 2023 Forward diversification reduced edges from 1120000 to 730275
+Fri Aug 25 09:42:47 2023 Reverse diversification reduced edges from 730275 to 730275
+Fri Aug 25 09:43:10 2023 Degree pruning reduced edges from 1047026 to 821836
+Fri Aug 25 09:43:10 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:10 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:11 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:57 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:55 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:22 2023 Worst tree score: 0.15125000
+Fri Aug 25 09:43:22 2023 Mean tree score: 0.15437616
+Fri Aug 25 09:43:22 2023 Best tree score: 0.15644643
+Fri Aug 25 09:43:35 2023 Forward diversification reduced edges from 1120000 to 730416
+Fri Aug 25 09:43:41 2023 Reverse diversification reduced edges from 730416 to 730416
+Fri Aug 25 09:43:46 2023 Degree pruning reduced edges from 1046988 to 822293
+Fri Aug 25 09:43:46 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:47 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:47 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:56 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:52 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:31 2023 Worst tree score: 0.15145536
+Fri Aug 25 09:43:31 2023 Mean tree score: 0.15462384
+Fri Aug 25 09:43:31 2023 Best tree score: 0.15704464
+Fri Aug 25 09:43:39 2023 Forward diversification reduced edges from 1120000 to 730870
+Fri Aug 25 09:43:44 2023 Reverse diversification reduced edges from 730870 to 730870
+Fri Aug 25 09:43:50 2023 Degree pruning reduced edges from 1046870 to 821890
+Fri Aug 25 09:43:50 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:50 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:50 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:57 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:56 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:36 2023 Worst tree score: 0.15308929
+Fri Aug 25 09:43:36 2023 Mean tree score: 0.15472593
+Fri Aug 25 09:43:36 2023 Best tree score: 0.15697321
+Fri Aug 25 09:43:42 2023 Forward diversification reduced edges from 1120000 to 731038
+Fri Aug 25 09:43:48 2023 Reverse diversification reduced edges from 731038 to 731038
+Fri Aug 25 09:43:53 2023 Degree pruning reduced edges from 1046968 to 822844
+Fri Aug 25 09:43:53 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:53 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:53 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:56 2023 Building RP forest with 23 trees
+Fri Aug 25 09:37:51 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	 15  /  17
+	Stopping threshold met -- exiting after 15 iterations
+Fri Aug 25 09:43:31 2023 Worst tree score: 0.15116964
+Fri Aug 25 09:43:31 2023 Mean tree score: 0.15481405
+Fri Aug 25 09:43:31 2023 Best tree score: 0.15701786
+Fri Aug 25 09:43:39 2023 Forward diversification reduced edges from 1120000 to 730826
+Fri Aug 25 09:43:44 2023 Reverse diversification reduced edges from 730826 to 730826
+Fri Aug 25 09:43:50 2023 Degree pruning reduced edges from 1047744 to 823263
+Fri Aug 25 09:43:50 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:50 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:50 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:58 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:04 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:41:27 2023 Worst tree score: 0.15218750
+Fri Aug 25 09:41:27 2023 Mean tree score: 0.15483851
+Fri Aug 25 09:41:27 2023 Best tree score: 0.15777679
+Fri Aug 25 09:42:20 2023 Forward diversification reduced edges from 1120000 to 729798
+Fri Aug 25 09:43:07 2023 Reverse diversification reduced edges from 729798 to 729798
+Fri Aug 25 09:43:19 2023 Degree pruning reduced edges from 1045084 to 820736
+Fri Aug 25 09:43:19 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:43:20 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:43:20 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:58 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:04 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:50 2023 Worst tree score: 0.15307143
+Fri Aug 25 09:43:50 2023 Mean tree score: 0.15493323
+Fri Aug 25 09:43:50 2023 Best tree score: 0.15666071
+Fri Aug 25 09:43:57 2023 Forward diversification reduced edges from 1120000 to 731320
+Fri Aug 25 09:44:00 2023 Reverse diversification reduced edges from 731320 to 731320
+Fri Aug 25 09:44:03 2023 Degree pruning reduced edges from 1048676 to 823742
+Fri Aug 25 09:44:03 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:44:03 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:44:03 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 32])
+Number of query threads: 32
+Fri Aug 25 09:36:58 2023 Building RP forest with 23 trees
+Fri Aug 25 09:38:03 2023 NN descent for 17 iterations
+	 1  /  17
+	 2  /  17
+	 3  /  17
+	 4  /  17
+	 5  /  17
+	 6  /  17
+	 7  /  17
+	 8  /  17
+	 9  /  17
+	 10  /  17
+	 11  /  17
+	 12  /  17
+	 13  /  17
+	 14  /  17
+	Stopping threshold met -- exiting after 14 iterations
+Fri Aug 25 09:43:51 2023 Worst tree score: 0.15296429
+Fri Aug 25 09:43:51 2023 Mean tree score: 0.15470031
+Fri Aug 25 09:43:51 2023 Best tree score: 0.15684821
+Fri Aug 25 09:43:56 2023 Forward diversification reduced edges from 1120000 to 730916
+Fri Aug 25 09:44:00 2023 Reverse diversification reduced edges from 730916 to 730916
+Fri Aug 25 09:44:02 2023 Degree pruning reduced edges from 1047800 to 823090
+Fri Aug 25 09:44:02 2023 Resorting data and graph based on tree order
+Fri Aug 25 09:44:03 2023 Compressing index by removing unneeded attributes
+Fri Aug 25 09:44:03 2023 Building and compiling search function
+Built index in 443.8576238155365
+Running query argument group 1 of 1...
+Run 1/1...
+Queries per second: 179.58423738986298

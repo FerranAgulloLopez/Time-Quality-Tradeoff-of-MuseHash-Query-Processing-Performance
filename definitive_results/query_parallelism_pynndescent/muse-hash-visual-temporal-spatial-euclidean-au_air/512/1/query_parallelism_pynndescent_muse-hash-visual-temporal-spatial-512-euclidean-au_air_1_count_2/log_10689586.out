@@ -1,0 +1,28 @@
+['euclidean', 1, 1]
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 1])
+Number of query threads: 1
+got a train set of size (7000 * 512)
+got 450 queries
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 1])
+Number of query threads: 1
+Mon Aug 28 02:15:21 2023 Building RP forest with 14 trees
+Mon Aug 28 02:15:25 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	 4  /  13
+	 5  /  13
+	Stopping threshold met -- exiting after 5 iterations
+Mon Aug 28 02:17:13 2023 Worst tree score: 0.45385714
+Mon Aug 28 02:17:13 2023 Mean tree score: 0.50066327
+Mon Aug 28 02:17:13 2023 Best tree score: 0.53257143
+Mon Aug 28 02:17:18 2023 Forward diversification reduced edges from 70000 to 42945
+Mon Aug 28 02:17:21 2023 Reverse diversification reduced edges from 42945 to 42945
+Mon Aug 28 02:17:23 2023 Degree pruning reduced edges from 48648 to 48075
+Mon Aug 28 02:17:23 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:17:23 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:17:23 2023 Building and compiling search function
+Built index in 134.67185640335083
+Running query argument group 1 of 1...
+Run 1/1...
+Queries per second: 10411.606226762722

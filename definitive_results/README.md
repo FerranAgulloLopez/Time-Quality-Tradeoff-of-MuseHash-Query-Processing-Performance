@@ -20,6 +20,7 @@ The definitive results contain the following types of experiments:
 - *data_parallelism*: checking the scalability of the bruteforce sklearn algorithm when adding more processes for doing the single query computation (via the variable named as *n_jobs*)
 - *query_parallelism*: checking the scalability of the bruteforce sklearn algorithm when adding more processes to handle the full set of input queries
 - *query_parallelism_cuda*: checking the scalability of the bruteforce cuml algorithm when adding more processes to handle the full set of input queries (using GPUs)
+- *query_parallelism_pynndescent*: checking the scalability of the pynndescent sklearn algorithm when adding more processes to handle the full set of input queries
 - *ball_tree_dimension_importance*: checking the scalability of the ball tree sklearn algorithm when increasing the number of dimensions of the data
 
 #### Available charts

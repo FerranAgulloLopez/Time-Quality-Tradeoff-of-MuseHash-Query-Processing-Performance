@@ -1,0 +1,43 @@
+['euclidean', 1, 2]
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 2])
+Number of query threads: 2
+got a train set of size (7000 * 32)
+got 450 queries
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 2])
+Number of query threads: 2
+Mon Aug 28 01:55:13 2023 Building RP forest with 14 trees
+Mon Aug 28 01:55:17 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	Stopping threshold met -- exiting after 3 iterations
+Mon Aug 28 01:57:06 2023 Worst tree score: 0.56328571
+Mon Aug 28 01:57:06 2023 Mean tree score: 0.65444898
+Mon Aug 28 01:57:06 2023 Best tree score: 0.84314286
+Mon Aug 28 01:57:10 2023 Forward diversification reduced edges from 70000 to 50121
+Mon Aug 28 01:57:13 2023 Reverse diversification reduced edges from 50121 to 50121
+Mon Aug 28 01:57:15 2023 Degree pruning reduced edges from 58296 to 58193
+Mon Aug 28 01:57:15 2023 Resorting data and graph based on tree order
+Mon Aug 28 01:57:15 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 01:57:15 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 2])
+Number of query threads: 2
+Mon Aug 28 01:55:13 2023 Building RP forest with 14 trees
+Mon Aug 28 01:55:17 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	Stopping threshold met -- exiting after 3 iterations
+Mon Aug 28 01:57:08 2023 Worst tree score: 0.54114286
+Mon Aug 28 01:57:08 2023 Mean tree score: 0.64711224
+Mon Aug 28 01:57:08 2023 Best tree score: 0.80114286
+Mon Aug 28 01:57:11 2023 Forward diversification reduced edges from 70000 to 50022
+Mon Aug 28 01:57:14 2023 Reverse diversification reduced edges from 50022 to 50022
+Mon Aug 28 01:57:16 2023 Degree pruning reduced edges from 58202 to 58122
+Mon Aug 28 01:57:16 2023 Resorting data and graph based on tree order
+Mon Aug 28 01:57:16 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 01:57:16 2023 Building and compiling search function
+Built index in 134.83579993247986
+Running query argument group 1 of 1...
+Run 1/1...
+Queries per second: 33234.787202197534

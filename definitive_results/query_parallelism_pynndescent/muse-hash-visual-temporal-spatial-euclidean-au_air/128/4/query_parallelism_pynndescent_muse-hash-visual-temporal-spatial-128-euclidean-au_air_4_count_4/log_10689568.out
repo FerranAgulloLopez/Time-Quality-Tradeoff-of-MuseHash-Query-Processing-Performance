@@ -1,0 +1,85 @@
+['euclidean', 1, 4]
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 4])
+Number of query threads: 4
+got a train set of size (7000 * 128)
+got 450 queries
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 4])
+Number of query threads: 4
+Mon Aug 28 02:09:26 2023 Building RP forest with 14 trees
+Mon Aug 28 02:09:30 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	 4  /  13
+	 5  /  13
+	Stopping threshold met -- exiting after 5 iterations
+Mon Aug 28 02:11:23 2023 Worst tree score: 0.45942857
+Mon Aug 28 02:11:23 2023 Mean tree score: 0.48679592
+Mon Aug 28 02:11:23 2023 Best tree score: 0.51628571
+Mon Aug 28 02:11:26 2023 Forward diversification reduced edges from 70000 to 43631
+Mon Aug 28 02:11:30 2023 Reverse diversification reduced edges from 43631 to 43631
+Mon Aug 28 02:11:33 2023 Degree pruning reduced edges from 51824 to 51244
+Mon Aug 28 02:11:33 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:11:33 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:11:33 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 4])
+Number of query threads: 4
+Mon Aug 28 02:09:26 2023 Building RP forest with 14 trees
+Mon Aug 28 02:09:30 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	 4  /  13
+	 5  /  13
+	Stopping threshold met -- exiting after 5 iterations
+Mon Aug 28 02:11:20 2023 Worst tree score: 0.45400000
+Mon Aug 28 02:11:20 2023 Mean tree score: 0.49186735
+Mon Aug 28 02:11:20 2023 Best tree score: 0.51571429
+Mon Aug 28 02:11:25 2023 Forward diversification reduced edges from 70000 to 43701
+Mon Aug 28 02:11:28 2023 Reverse diversification reduced edges from 43701 to 43701
+Mon Aug 28 02:11:31 2023 Degree pruning reduced edges from 51868 to 51275
+Mon Aug 28 02:11:31 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:11:31 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:11:31 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 4])
+Number of query threads: 4
+Mon Aug 28 02:09:26 2023 Building RP forest with 14 trees
+Mon Aug 28 02:09:30 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	 4  /  13
+	 5  /  13
+	Stopping threshold met -- exiting after 5 iterations
+Mon Aug 28 02:11:19 2023 Worst tree score: 0.45671429
+Mon Aug 28 02:11:19 2023 Mean tree score: 0.48510204
+Mon Aug 28 02:11:19 2023 Best tree score: 0.50800000
+Mon Aug 28 02:11:24 2023 Forward diversification reduced edges from 70000 to 43697
+Mon Aug 28 02:11:27 2023 Reverse diversification reduced edges from 43697 to 43697
+Mon Aug 28 02:11:30 2023 Degree pruning reduced edges from 51812 to 51221
+Mon Aug 28 02:11:30 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:11:30 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:11:30 2023 Building and compiling search function
+Trying to instantiate ann_benchmarks.algorithms.pynndescent.pynndescent(['euclidean', 1, 4])
+Number of query threads: 4
+Mon Aug 28 02:09:26 2023 Building RP forest with 14 trees
+Mon Aug 28 02:09:30 2023 NN descent for 13 iterations
+	 1  /  13
+	 2  /  13
+	 3  /  13
+	 4  /  13
+	 5  /  13
+	Stopping threshold met -- exiting after 5 iterations
+Mon Aug 28 02:11:22 2023 Worst tree score: 0.47185714
+Mon Aug 28 02:11:22 2023 Mean tree score: 0.49139796
+Mon Aug 28 02:11:22 2023 Best tree score: 0.50942857
+Mon Aug 28 02:11:26 2023 Forward diversification reduced edges from 70000 to 43647
+Mon Aug 28 02:11:29 2023 Reverse diversification reduced edges from 43647 to 43647
+Mon Aug 28 02:11:32 2023 Degree pruning reduced edges from 51930 to 51350
+Mon Aug 28 02:11:32 2023 Resorting data and graph based on tree order
+Mon Aug 28 02:11:32 2023 Compressing index by removing unneeded attributes
+Mon Aug 28 02:11:32 2023 Building and compiling search function
+Built index in 139.04129362106323
+Running query argument group 1 of 1...
+Run 1/1...
+Queries per second: 38798.62684235433
