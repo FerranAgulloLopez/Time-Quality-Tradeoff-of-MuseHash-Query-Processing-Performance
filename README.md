@@ -122,7 +122,7 @@ At the end of the array *"[\"euclidean\", 1, 1]"* other parameters can be includ
 
 Lastly, it is possible to add the pragma *--batch* at the end of the call to send all queries to the algorithm at the same time. Notice that not all algorithms implement this functionality.
 
-For running all the scalability experiments needed for the paper, check the file `definitive_results/mn_launcher.sh`. It contains the run commands to launch all experiments in one of the MareNostrum clusters. The last can be updated to work in other platforms. Check the directory *definitive_results* for more information.
+For running all the scalability experiments needed for the paper, check the file *mn_launcher.sh*. It contains the run commands to launch all experiments in one of the MareNostrum clusters. The last can be updated to work in other platforms. Check the directory *definitive_results* for more information.
 
 ### How to plot
 For plotting:

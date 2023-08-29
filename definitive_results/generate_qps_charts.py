@@ -20,8 +20,15 @@ def __plot_lines(lines, y_label, x_label, x_ticks, title, path):
     plt.savefig(path, bbox_inches='tight')
 
 
-def __create_qps_chart(path: str):
+def __create_qps_chart(path: str, ignore_directories=None):
     result_files = list(Path(path).glob('*/results.csv'))
+    if ignore_directories is not None:
+        result_files_to_delete = []
+        for result_file in result_files:
+            if result_file.parent.name in ignore_directories:
+                result_files_to_delete.append(result_file)
+        for result_file in result_files_to_delete:
+            result_files.remove(result_file)
 
     multiple_labels = []
     multiple_indexes_results = []
@@ -57,19 +64,20 @@ def __create_qps_chart(path: str):
 
 
 # recursive
-def generate_charts(path: str, *splits):
+def generate_charts(path: str, *splits, ignore_directories=None):
     if len(splits) == 0:
-        __create_qps_chart(path)
+        __create_qps_chart(path, ignore_directories)
     else:
         split = splits[0]
         for folder in split:
-            generate_charts(os.path.join(path, folder), *splits[1:])
+            generate_charts(os.path.join(path, folder), *splits[1:], ignore_directories=ignore_directories)
 
 
 if __name__ == '__main__':
     generate_charts(
         'query_parallelism',
-        ['fake-large', 'fake-medium', 'fake-small', 'muse-hash-visual-temporal-spatial-euclidean-au_air']
+        ['fake-large', 'fake-medium', 'fake-small', 'muse-hash-visual-temporal-spatial-euclidean-au_air'],
+        ignore_directories={'1', '2', '4', '8', '16'}
     )
     generate_charts(
         'query_parallelism_cuda',

@@ -92,4 +92,16 @@ if __name__ == '__main__':
         ['fake-large', 'fake-medium', 'fake-small', 'muse-hash-visual-temporal-spatial-euclidean-au_air'],
         ['32', '128', '512', '2048'],
         ['1', '2', '4', '8', '16', '32']
+    ),
+    extract_results(
+        'query_parallelism',
+        ['fake-large'],
+        ['1', '2', '4', '8', '16'],
+        ['1']
+    ),
+    extract_results(
+        'ball_tree_dimension_importance',
+        ['fake-large'],
+        ['1', '2', '4', '8', '16', '32'],
+        ['1']
     )

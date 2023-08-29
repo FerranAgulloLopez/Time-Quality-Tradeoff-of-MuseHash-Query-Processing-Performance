@@ -1,0 +1,11 @@
+['euclidean', 1, 1, 100]
+Trying to instantiate ann_benchmarks.algorithms.balltree.balltree(['euclidean', 1, 1, 100])
+Number of query threads: 1
+got a train set of size (448000 * 8)
+got 450 queries
+Built index in 7.870871067047119
+Running query argument group 1 of 1...
+Run 1/1...
+Queries per second: 113.80932973496975
+Trying to instantiate ann_benchmarks.algorithms.balltree.balltree(['euclidean', 1, 1, 100])
+Number of query threads: 1
