@@ -1,6 +1,6 @@
 import numpy as np
-from pynndescent import NNDescent
 import scipy.sparse
+from pynndescent import NNDescent
 
 from .base import BaseANN
 

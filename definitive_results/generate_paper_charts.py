@@ -1,12 +1,6 @@
-import csv
-from copy import deepcopy
-import os
-from pathlib import Path
-from matplotlib.lines import Line2D
-import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
-
 import numpy as np
+from matplotlib.lines import Line2D
 
 
 def __plot_lines(lines, y_label, x_label, x_ticks, title, path):
