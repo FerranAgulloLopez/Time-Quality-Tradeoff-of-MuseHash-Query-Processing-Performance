@@ -160,7 +160,7 @@ def speedup_data_vs_query_parallelism():
         axs[0].fill_between(x, y - y_error, y + y_error, alpha=0.3, color=color)
     axs[0].plot(optimal_speedup, optimal_speedup, label='optimal scalability', color='#C1666B')
     axs[0].set_xlabel('number processes', fontsize=20)
-    axs[0].set_xticks(optimal_speedup[1:], optimal_speedup[1:], fontsize=18)
+    axs[0].set_xticks(optimal_speedup, optimal_speedup, fontsize=18)
     axs[0].set_title('(a) Data Parallelism & large synthetic', fontsize=23)
     axs[0].set_yticks(optimal_speedup[1:], optimal_speedup[1:], fontsize=18)
     axs[0].set_ylabel('Speed-up', fontsize=18)
@@ -180,7 +180,7 @@ def speedup_data_vs_query_parallelism():
         axs[1].plot(x, y, color=color, marker='o')
         axs[1].fill_between(x, y - y_error, y + y_error, alpha=0.3, color=color)
     axs[1].set_xlabel('number processes', fontsize=20)
-    axs[1].set_xticks(optimal_speedup[1:], optimal_speedup[1:], fontsize=18)
+    axs[1].set_xticks(optimal_speedup, optimal_speedup, fontsize=18)
     axs[1].plot(optimal_speedup, optimal_speedup, label='optimal scalability', color='#C1666B')
     axs[1].set_title('(b) Query Parallelism & large synthetic', fontsize=23)
 
@@ -200,7 +200,7 @@ def speedup_data_vs_query_parallelism():
         axs[2].fill_between(x, y - y_error, y + y_error, alpha=0.3, color=color)
     axs[2].plot(optimal_speedup, optimal_speedup, label='optimal scalability', color='#C1666B')
     axs[2].set_xlabel('number processes', fontsize=20)
-    axs[2].set_xticks(optimal_speedup[1:], optimal_speedup[1:], fontsize=18)
+    axs[2].set_xticks(optimal_speedup, optimal_speedup, fontsize=18)
     axs[2].set_title('(c) Query Parallelism & AU-AIR', fontsize=23)
 
     handles, labels = axs[0].get_legend_handles_labels()
@@ -319,27 +319,6 @@ def speedup_cpu_vs_gpu():
 
     lines = [
         (
-            speedup_query_parallelism_large[hash_length]['mean'],
-            speedup_query_parallelism_large[hash_length]['error'],
-            optimal_speedup,
-            colors[index]
-        )
-        for index, hash_length in enumerate(speedup_query_parallelism_large.keys())
-    ]
-
-    for line in lines:
-        y, y_error, x, color = line
-        axs[0].plot(x, y, color=color, marker='o')
-        axs[0].fill_between(x, y - y_error, y + y_error, alpha=0.3, color=color)
-    axs[0].plot(optimal_speedup, optimal_speedup, label='optimal scalability', color='#C1666B')
-    plt.xlabel('number processes / GPUs', fontsize=16)
-    plt.xticks(optimal_speedup[1:], fontsize=18)
-    axs[0].set_title('CPU', fontsize=18)
-    axs[0].set_yticks(optimal_speedup, optimal_speedup, fontsize=18)
-    axs[0].set_ylabel('Speed-up', fontsize=18)
-
-    lines = [
-        (
             speedup_query_parallelism_large_gpu[hash_length]['mean'],
             speedup_query_parallelism_large_gpu[hash_length]['error'],
             optimal_speedup,
@@ -350,12 +329,33 @@ def speedup_cpu_vs_gpu():
 
     for line in lines:
         y, y_error, x, color = line
+        axs[0].plot(x, y, color=color, marker='o')
+        axs[0].fill_between(x, y - y_error, y + y_error, alpha=0.3, color=color)
+    axs[0].plot(optimal_speedup, optimal_speedup, label='optimal scalability', color='#C1666B')
+    axs[0].set_title('GPU', fontsize=18)
+    axs[0].set_yticks([1, 64, 128, 384, 512], [1, 64, 128, 384, 512], fontsize=18)
+    axs[0].set_ylabel('Speed-up', fontsize=18, labelpad=-18)
+
+    lines = [
+        (
+            speedup_query_parallelism_large[hash_length]['mean'],
+            speedup_query_parallelism_large[hash_length]['error'],
+            optimal_speedup,
+            colors[index]
+        )
+        for index, hash_length in enumerate(speedup_query_parallelism_large.keys())
+    ]
+
+    for line in lines:
+        y, y_error, x, color = line
         axs[1].plot(x, y, color=color, marker='o')
         axs[1].fill_between(x, y - y_error, y + y_error, alpha=0.3, color=color)
     axs[1].plot(optimal_speedup, optimal_speedup, label='optimal scalability', color='#C1666B')
-    axs[1].set_title('GPU', fontsize=18)
-    axs[1].set_yticks([1, 64, 128, 384, 512], [1, 64, 128, 384, 512], fontsize=18)
-    axs[1].set_ylabel('Speed-up', fontsize=18, labelpad=-18)
+    plt.xlabel('number processes / GPUs', fontsize=16)
+    plt.xticks(optimal_speedup, fontsize=18)
+    axs[1].set_title('CPU', fontsize=18)
+    axs[1].set_yticks(optimal_speedup, optimal_speedup, fontsize=18)
+    axs[1].set_ylabel('Speed-up', fontsize=18)
 
     handles, labels = axs[0].get_legend_handles_labels()
     line_1 = Line2D([0], [0], label='32 hash length', color='green')
@@ -449,28 +449,8 @@ def qps_cpu_vs_gpu():
 
     lines = [
         (
-            np.asarray(qps_query_parallelism_large[hash_length]['mean']),
-            np.asarray(qps_query_parallelism_large[hash_length]['error']),
-            np.asarray([1, 2, 4]),
-            colors[index]
-        )
-        for index, hash_length in enumerate(qps_query_parallelism_large.keys())
-    ]
-
-    for line in lines:
-        y, y_error, x, color = line
-        axs[0].plot(x, y, color=color, marker='o')
-        axs[0].fill_between(x, y - y_error, y + y_error, alpha=0.3, color=color)
-    plt.xlabel('number processes / GPUs', fontsize=16)
-    plt.xticks([1, 2, 4], fontsize=18)
-    axs[0].set_title('CPU', fontsize=18)
-    axs[0].set_yticks([2, 4, 8, 16], [2, 4, 8, 16], fontsize=18)
-    axs[0].set_ylabel('Queries per second (1/s)', fontsize=18)
-
-    lines = [
-        (
-            np.asarray(qps_query_parallelism_large_gpu[hash_length]['mean']),
-            np.asarray(qps_query_parallelism_large_gpu[hash_length]['error']),
+            np.asarray(qps_query_parallelism_large_gpu[hash_length]['mean']) / 1000,
+            np.asarray(qps_query_parallelism_large_gpu[hash_length]['error']) / 1000,
             np.asarray([1, 2, 4]),
             colors[index]
         )
@@ -479,11 +459,31 @@ def qps_cpu_vs_gpu():
 
     for line in lines:
         y, y_error, x, color = line
+        axs[0].plot(x, y, color=color, marker='o')
+        axs[0].fill_between(x, y - y_error, y + y_error, alpha=0.3, color=color)
+    axs[0].set_title('GPU', fontsize=18)
+    axs[0].set_yticks([0.02, 0.03, 0.04, 0.05, 0.06], [0.02, 0.03, 0.04, 0.05, 0.06], fontsize=18)
+    axs[0].set_ylabel('Queries per second (1/s) in scale of 1000', fontsize=16)
+
+    lines = [
+        (
+            np.asarray(qps_query_parallelism_large[hash_length]['mean']) / 1000,
+            np.asarray(qps_query_parallelism_large[hash_length]['error']) / 1000,
+            np.asarray([1, 2, 4]),
+            colors[index]
+        )
+        for index, hash_length in enumerate(qps_query_parallelism_large.keys())
+    ]
+
+    for line in lines:
+        y, y_error, x, color = line
         axs[1].plot(x, y, color=color, marker='o')
         axs[1].fill_between(x, y - y_error, y + y_error, alpha=0.3, color=color)
-    axs[1].set_title('GPU', fontsize=18)
-    axs[1].set_yticks([8, 16, 32, 64], [8, 16, 32, 64], fontsize=18)
-    axs[1].set_ylabel('Queries per second (1/s)', fontsize=18)
+    plt.xlabel('number processes / GPUs', fontsize=16)
+    plt.xticks([1, 2, 4], fontsize=18)
+    axs[1].set_title('CPU', fontsize=18)
+    axs[1].set_yticks([0.00, 0.01, 0.02], [0.00, 0.01, 0.02], fontsize=18)
+    axs[1].set_ylabel('Queries per second (1/s) in scale of 1000', fontsize=16)
 
     handles, labels = axs[0].get_legend_handles_labels()
     line_1 = Line2D([0], [0], label='32 hash length', color='green')
@@ -668,30 +668,40 @@ def course_dimensionality():
         'mean': [np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, 11708.504448089661, 4042.2247382688497, 199.07459845906192, 2.704015756545677],
         'error': [np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, 231.45319988448057, 80.30552987306814, 2.87626509918476, 0.055557669498237754]
     }
+    qps_bruteforce_large_gpu = {
+        'mean': [np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, 21.104572589765752, 21.09609487083733, 19.734008523966025, 18.14725961274277],
+        'error': [np.NaN, np.NaN, np.NaN, np.NaN, np.NaN, 0.6959737402052791, 0.15123938852234747, 1.2796876051427148, 0.3999890494492262]
+    }
     colors = ['green', 'blue', 'orange', 'orchid']
     lines = [
         (
-            np.asarray(qps_bruteforce_large['mean']),
-            np.asarray(qps_bruteforce_large['error']),
+            np.asarray(qps_bruteforce_large['mean'])/1000,
+            np.asarray(qps_bruteforce_large['error'])/1000,
             np.arange(0, len(qps_bruteforce_large['mean'])),
             colors[0]
         ),
         (
-            np.asarray(qps_balltree_large['mean']),
-            np.asarray(qps_balltree_large['error']),
+            np.asarray(qps_balltree_large['mean'])/1000,
+            np.asarray(qps_balltree_large['error'])/1000,
             np.arange(0, len(qps_bruteforce_large['mean'])),
             colors[1]
         ),
         (
-            np.asarray(qps_pynndescent_large['mean']),
-            np.asarray(qps_pynndescent_large['error']),
+            np.asarray(qps_pynndescent_large['mean'])/1000,
+            np.asarray(qps_pynndescent_large['error'])/1000,
             np.arange(0, len(qps_bruteforce_large['mean'])),
             colors[2]
+        ),
+        (
+            np.asarray(qps_bruteforce_large_gpu['mean'])/1000,
+            np.asarray(qps_bruteforce_large_gpu['error'])/1000,
+            np.arange(0, len(qps_bruteforce_large['mean'])),
+            colors[3]
         )
 
     ]
 
-    plt.figure(figsize=(9, 4))
+    plt.figure(figsize=(9, 5))
     ax = plt.gca()
 
     for line in lines:
@@ -700,16 +710,18 @@ def course_dimensionality():
         plt.fill_between(x, y - y_error, y + y_error, alpha=0.3, color=color)
     # plt.yticks([2, 4, 8, 16], [2, 4, 8, 16], fontsize=18)
     #plt.ylim(2, 25)
-    plt.ylabel('Queries per second (1/s)', fontsize=18)
+    plt.ylabel('Queries per second (1/s) in scale of 1000', fontsize=14)
     plt.xlabel('dimension size / hash lengths', fontsize=20)
+    plt.yticks(fontsize=18)
     plt.xticks(np.arange(0, len(qps_bruteforce_large['mean'])), [1, 2, 4, 8, 16, 32, 128, 512, 2048], fontsize=18)
 
     handles, labels = ax.get_legend_handles_labels()
-    line_1 = Line2D([0], [0], label='brute-force', color=colors[0])
+    line_1 = Line2D([0], [0], label='brute-force with CPU', color=colors[0])
     line_2 = Line2D([0], [0], label='BallTree', color=colors[1])
     line_3 = Line2D([0], [0], label='PyNNDescent', color=colors[2])
-    handles.extend([line_1, line_2, line_3])
-    plt.legend(handles=handles, loc='best', fontsize=18)
+    line_4 = Line2D([0], [0], label='brute-force with GPU', color=colors[3])
+    handles.extend([line_1, line_4, line_2, line_3])
+    plt.legend(handles=handles, loc='upper left', fontsize=18)
     plt.savefig(f'paper_charts/course_of_dimensionality.png', bbox_inches='tight')
 
 
