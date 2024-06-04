@@ -1,5 +1,5 @@
-# MuseHash Scalability
-_This adaptation was created as a result of the research publication ..._
+# Time-Quality Tradeoff of MuseHash Query Processing Performance
+_This adaptation was created as a result of a research publication at International Conference on Multimedia Modeling_
 
 ### Introduction
 This repository contains an adaptation of the code from [ANN Benchmark](http://github.com/erikbern/ann-benchmarks/). The modifications are meant to perform scalability experiments with the MuseHash method.
@@ -137,7 +137,9 @@ python3 plot.py --dataset vgg16-features --count 10 --recompute -x muse-hash-rec
 Take into account that this feature is not used in the scalability experiments. It is maintained for backward compatibility with the original implementation and for assuring the good functioning of the code with the computation of the precision and recall metrics. Check the *definitive_results* directory for the information of the plots / charts produced for the scalability experiments.
 
 ### Authors
-...
+Maria Pegia, Ferran Agullo Lopez, Anastasia Moumtzidou, Alberto Gutierrez-Torre, Björn Þór Jónsson, Josep Lluís Berral García, Ilias Gialampoukidis, Stefanos Vrochidis, Ioannis Kompatsiaris
 
 ### Related publication
-...
+```
+Pegia, M. et al. (2024). Time-Quality Tradeoff of MuseHash Query Processing Performance. In: Rudinac, S., et al. MultiMedia Modeling. MMM 2024. Lecture Notes in Computer Science, vol 14556. Springer, Cham. https://doi.org/10.1007/978-3-031-53311-2_20
+```
